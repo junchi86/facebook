@@ -1,0 +1,75 @@
+<!-- 네비게이션 컴포넌트 / list / link -->
+<nav class="navbar fixed-top bg-blue">
+  <a href="/" class="navbar-brand">
+    <i class="fab fa-facebook-square" aria-hidden="true"></i>
+  </a>
+  <ul class="nav">
+    <li class="nav-item">
+      <a href="/login.html" class="nav-link">
+        로그인
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="./login.html" class="nav-link">
+        Harry
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="./signup.html" class="nav-link">
+        회원가입
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/u/1" class="nav-link">
+        <img
+          alt="user image"
+          src="https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png"
+        />
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link">로그아웃</a>
+    </li>
+  </ul>
+</nav>
+
+<!-- 포스트 컨테이너(홈) / 폼 / 카드 / 커멘트리스트-->
+<div class="posts container">
+  <form class="write-form">
+    <textarea class="form-control input-lg" placeholder="무슨 생각을 하고 계신가요?" spellcheck="false"></textarea>
+    <button type="submit" class="btn btn-primary">
+      공유하기
+    </button>
+  </form>
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Harry</h5>
+      <h6 class="card-subtitle text-muted">10분전</h6>
+      <p class="card-text">안녕하세요. 다같이 리엑트를 배워봅시다. 리덕스도 물런 배워야죠</p>
+      <hr />
+      <div class="card-info">
+        <button type="button" class="thumb-count">
+          <i class="far fa-thumbs-up">4 개</i>
+        </button>
+        <span class="comment-count">
+          <i class="far fa-comment-alt">3 개</i>
+        </span>
+      </div>
+    </div>
+    <ul class="comment-list">
+      <li class="comment">
+        <div class="comment-info">
+          <h6 class="comment-writer">Aiden</h6>
+          <div class="comment-datetime">10분전</div>
+        </div>
+        <p class="comment-text">그래요 배워야죠 배워야 남는거죠...</p>
+      </li>
+    </ul>
+    <form class="comment-form">
+      <textarea class="form-control input-lg" placeholder="댓글을 입력하세요..." spellcheck="false"></textarea>
+      <button type="submit" class="btn btn-primary">
+        댓글달기
+      </button>
+    </form>
+  </div>
+</div>
