@@ -1,7 +1,7 @@
-import React from 'react';
-import NavigationPublic from '../../components/Navigation/NavgationPublic';
+import React, { FC } from 'react';
+import NavigationPublic from 'components/Navigation/NavgationPublic';
 
-const PublicLayout: React.FunctionComponent = ({ children }) => {
+const PublicLayout: FC = ({ children }) => {
   return (
     <>
       <NavigationPublic />

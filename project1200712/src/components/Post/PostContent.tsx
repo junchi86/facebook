@@ -1,14 +1,14 @@
-import React from 'react';
-import { Post, UpLikes } from '../../Types';
+import React, { FC } from 'react';
+import { Post, UpLikes, ButtonEvent } from 'Types';
 
 interface IProps {
   post: Post;
   upLikes: UpLikes;
 }
 
-const CardBody: React.FunctionComponent<IProps> = ({ post, upLikes }) => {
-  const thumbUp = (e: React.SyntheticEvent<HTMLButtonElement>): void => {
-    e.preventDefault();
+const PostContent: FC<IProps> = ({ post, upLikes }) => {
+  const upLikesHandler: ButtonEvent = (event) => {
+    event.preventDefault();
     return upLikes(post.seq);
   };
   return (
@@ -19,7 +19,7 @@ const CardBody: React.FunctionComponent<IProps> = ({ post, upLikes }) => {
         <p className="card-text">{post.contents}</p>
         <hr />
         <div className="card-info">
-          <button onClick={thumbUp} type="button" className="thumb-count">
+          <button onClick={upLikesHandler} type="button" className="thumb-count">
             <i className="far fa-thumbs-up">{post.likes} 개</i>
           </button>
           <span className="comment-count">
@@ -66,4 +66,4 @@ const CardBody: React.FunctionComponent<IProps> = ({ post, upLikes }) => {
   );
 };
 
-export default CardBody;
+export default PostContent;

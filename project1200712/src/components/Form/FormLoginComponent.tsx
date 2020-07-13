@@ -1,27 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import { useHistory } from 'react-router-dom';
+import { Login, InputEvent, FormEventType } from 'Types';
 
 interface IProps {
-  login: Function;
+  login: Login;
 }
 
-const FormLoginComponent: React.FunctionComponent<IProps> = ({ login }) => {
+const FormLoginComponent: FC<IProps> = ({ login }) => {
   let history = useHistory();
   const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
+  const [password, setPassword] = useState('');
 
-  const onChangeEmail = (e: React.SyntheticEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    setEmail(e.currentTarget.value);
+  const onChangeEmail: InputEvent = (event) => {
+    event.preventDefault();
+    setEmail(event.currentTarget.value);
   };
 
-  const onChangePassword = (e: React.SyntheticEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    setPass(e.currentTarget.value);
+  const onChangePassword: InputEvent = (event) => {
+    event.preventDefault();
+    setPassword(event.currentTarget.value);
   };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    const user = { email, pass };
+  const onSubmit: FormEventType = (event) => {
+    event.preventDefault();
+    const user = { email, password };
     login(user);
     history.push('/');
   };
@@ -42,7 +43,7 @@ const FormLoginComponent: React.FunctionComponent<IProps> = ({ login }) => {
         className="form-control"
         placeholder="Password"
         required
-        value={pass}
+        value={password}
       />
       <button className="btn btn-lg btn-primary btn-block" type="submit">
         로그인

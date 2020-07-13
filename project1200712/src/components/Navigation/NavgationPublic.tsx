@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-const NavigationPublic: React.FunctionComponent = () => {
+const NavigationPublic: FC = () => {
   return (
     <>
       <nav className="navbar fixed-top bg-blue">

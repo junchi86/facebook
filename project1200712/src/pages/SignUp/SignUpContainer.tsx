@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 import SignUpPresenter from './SignUpPresenter';
-import { Login } from '../../Types';
+import { Login } from 'Types';
 
 interface IProps {
   login: Login;
 }
-const SignUpContainer: React.FunctionComponent<IProps> = ({ login }) => {
+const SignUpContainer: FC<IProps> = ({ login }) => {
   return <SignUpPresenter login={login} />;
 };
 

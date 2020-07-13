@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import Router from './Router';
-import { userList, PostList } from './Dummy';
-import { State } from './Types';
+import React, { useState, FC } from 'react';
+import { userList, PostList } from 'Dummy';
+import { State, LogUser, Logout, UploadPost, UploadComment, UpLikes } from 'Types';
+import RouterComponent from 'components/Router/RouterComponent';
 
-const App: React.FunctionComponent = () => {
+const App: FC = () => {
   const initialState: State = {
     user: {},
     posts: PostList,
   };
   const [state, setState] = useState(initialState);
 
-  const login = (logUser: { email: string; pass: string }): void => {
+  const login = (logUser: LogUser): void => {
     try {
       const emailFilter = userList.filter((user) => user.user.email === logUser.email);
       if (emailFilter.length === 1) {
-        const passFilter = userList.filter((user) => user.user.password === logUser.pass);
+        const passFilter = userList.filter((user) => user.user.password === logUser.password);
         setState((prev) => ({ ...prev, user: passFilter[0].user }));
         return;
       }
@@ -22,12 +22,12 @@ const App: React.FunctionComponent = () => {
       console.error(error);
     }
   };
-  const logout = (e: React.SyntheticEvent<HTMLAnchorElement>): void => {
+  const logout: Logout = (e) => {
     e.preventDefault();
     setState((prev) => ({ ...prev, user: {} }));
   };
 
-  const uploadPost = (text: string): void => {
+  const uploadPost: UploadPost = (text) => {
     try {
       const copyState = { ...state };
       const user = copyState.user;
@@ -52,7 +52,7 @@ const App: React.FunctionComponent = () => {
     }
   };
 
-  const uploadComment = (seq: number, text: string): void => {
+  const uploadComment: UploadComment = (seq, text) => {
     try {
       const copyState = { ...state };
       const user = { ...copyState.user };
@@ -75,7 +75,7 @@ const App: React.FunctionComponent = () => {
       console.log(error);
     }
   };
-  const upLikes = (seq: number): void => {
+  const upLikes: UpLikes = (seq) => {
     const user = state.user;
     if (Object.keys(user).length > 0) {
       const copyState = { ...state };
@@ -92,7 +92,7 @@ const App: React.FunctionComponent = () => {
   };
   return (
     <>
-      <Router
+      <RouterComponent
         state={state}
         logout={logout}
         login={login}
@@ -100,7 +100,7 @@ const App: React.FunctionComponent = () => {
         uploadComment={uploadComment}
         upLikes={upLikes}
       />
-      <style jsx global>{`
+      <style global jsx>{`
         * {
           box-sizing: border-box;
         }

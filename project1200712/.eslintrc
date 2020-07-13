@@ -4,13 +4,7 @@
     "browser": true,
     "es2020": true
   },
-  "extends": [
-    "eslint:recommended",
-    "prettier",
-    "plugin:react/recommended",
-    "prettier",
-    "prettier/react"
-  ],
+  "extends": ["eslint:recommended", "prettier", "plugin:react/recommended", "prettier", "prettier/react"],
   "parserOptions": {
     "ecmaVersion": 11,
     "sourceType": "module",

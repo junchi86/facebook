@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { State, Logout } from '../../Types';
+import { State, Logout } from 'Types';
 
 interface IProps {
   state: State;
   logout: Logout;
 }
 
-const NavigationDefault: React.FunctionComponent<IProps> = ({ state, logout }) => {
+const NavigationDefault: FC<IProps> = ({ state, logout }) => {
   return (
     <>
       <nav className="navbar fixed-top bg-blue">

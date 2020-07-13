@@ -1,12 +1,11 @@
-import React from 'react';
-import { CommentList } from '../../Types';
+import React, { FC } from 'react';
+import { CommentList } from 'Types';
 
 interface IProps {
   commentList: CommentList;
-  seq: number;
 }
 
-const CardComment: React.FunctionComponent<IProps> = ({ commentList }) => {
+const PostComment: FC<IProps> = ({ commentList }) => {
   return (
     <>
       <ul className="comment-list">
@@ -47,4 +46,4 @@ const CardComment: React.FunctionComponent<IProps> = ({ commentList }) => {
   );
 };
 
-export default CardComment;
+export default PostComment;

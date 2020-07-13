@@ -1,15 +1,24 @@
-import React from 'react';
-import { HashRouter as RouterDom, Route, Redirect, Switch } from 'react-router-dom';
-import PublicLayout from './layouts/PublicLayouts/PublicLayout';
-import HomeContainer from './pages/Home';
-import DefaultLayout from './layouts/DefaultLayout/DefaultLayout';
-import LoginContainer from './pages/Login';
-import SignUpContainer from './pages/SignUp';
-import { IState } from './Types';
+import React, { FC } from 'react';
+import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import PublicLayout from 'layouts/PublicLayouts/PublicLayout';
+import HomeContainer from 'pages/Home';
+import DefaultLayout from 'layouts/DefaultLayout/DefaultLayout';
+import LoginContainer from 'pages/Login';
+import SignUpContainer from 'pages/SignUp';
+import { Logout, State, Login, UploadPost, UploadComment, UpLikes } from '../../Types';
 
-const Router: React.FunctionComponent<IState> = ({ state, logout, login, uploadPost, uploadComment, upLikes }) => {
+interface IProps {
+  state: State;
+  logout: Logout;
+  login: Login;
+  uploadPost: UploadPost;
+  uploadComment: UploadComment;
+  upLikes: UpLikes;
+}
+
+const RouterComponent: FC<IProps> = ({ state, logout, login, uploadPost, uploadComment, upLikes }) => {
   return (
-    <RouterDom>
+    <Router>
       {Object.keys(state.user).length > 0 ? (
         <DefaultLayout state={state} logout={logout}>
           <Route
@@ -36,8 +45,8 @@ const Router: React.FunctionComponent<IState> = ({ state, logout, login, uploadP
         </PublicLayout>
       )}
       <Redirect from="*" to="/" />
-    </RouterDom>
+    </Router>
   );
 };
 
-export default Router;
+export default RouterComponent;

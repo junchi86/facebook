@@ -1,35 +1,36 @@
-import React, { useState } from 'react';
-import { userList } from '../../Dummy';
+import React, { useState, FC } from 'react';
+import { userList } from 'Dummy';
 import { useHistory } from 'react-router-dom';
+import { Login, InputEvent, FormEventType } from 'Types';
 
 interface IProps {
-  login: Function;
+  login: Login;
 }
 
-const FormSignUpComponent: React.FunctionComponent<IProps> = ({ login }) => {
+const FormSignUpComponent: FC<IProps> = ({ login }) => {
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [pass, setPass] = useState('');
   const [passRepeat, setPassRepeat] = useState('');
-  const onchangeEmail = (e: React.SyntheticEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    setEmail(e.currentTarget.value);
+  const onChangeEmail: InputEvent = (event) => {
+    event.preventDefault();
+    setEmail(event.currentTarget.value);
   };
-  const onchangeName = (e: React.SyntheticEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    setName(e.currentTarget.value);
+  const onChangeName: InputEvent = (event) => {
+    event.preventDefault();
+    setName(event.currentTarget.value);
   };
-  const onchangePass = (e: React.SyntheticEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    setPass(e.currentTarget.value);
+  const onChangePass: InputEvent = (event) => {
+    event.preventDefault();
+    setPass(event.currentTarget.value);
   };
-  const onchangePassRepeat = (e: React.SyntheticEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    setPassRepeat(e.currentTarget.value);
+  const onChangePassRepeat: InputEvent = (event) => {
+    event.preventDefault();
+    setPassRepeat(event.currentTarget.value);
   };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
+  const onSubmit: FormEventType = (event) => {
+    event.preventDefault();
     const user = {
       user: {
         seq: userList.length,
@@ -53,7 +54,7 @@ const FormSignUpComponent: React.FunctionComponent<IProps> = ({ login }) => {
       }
       if (emailFilter.length === 0) {
         userList.push(user);
-        const logUser = { email: user.user.email, pass: user.user.password };
+        const logUser = { email: user.user.email, password: user.user.password };
         login(logUser);
         return history.push('/');
       }
@@ -66,7 +67,7 @@ const FormSignUpComponent: React.FunctionComponent<IProps> = ({ login }) => {
     <form onSubmit={onSubmit}>
       <input
         value={email}
-        onChange={onchangeEmail}
+        onChange={onChangeEmail}
         type="email"
         className="form-control"
         placeholder="Email"
@@ -74,7 +75,7 @@ const FormSignUpComponent: React.FunctionComponent<IProps> = ({ login }) => {
       />
       <input
         value={name}
-        onChange={onchangeName}
+        onChange={onChangeName}
         type="text"
         className="form-control"
         placeholder="Your Name"
@@ -83,7 +84,7 @@ const FormSignUpComponent: React.FunctionComponent<IProps> = ({ login }) => {
       <input type="file" className="form-control" placeholder="Profile" />
       <input
         value={pass}
-        onChange={onchangePass}
+        onChange={onChangePass}
         type="password"
         className="form-control"
         placeholder="Password"
@@ -92,7 +93,7 @@ const FormSignUpComponent: React.FunctionComponent<IProps> = ({ login }) => {
       />
       <input
         value={passRepeat}
-        onChange={onchangePassRepeat}
+        onChange={onChangePassRepeat}
         type="password"
         className="form-control"
         placeholder="Repeat your password"

@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { UploadPost } from '../../Types';
+import React, { useState, FC } from 'react';
+import { UploadPost, FormEventType, TextAreaEvent } from 'Types';
 
 interface IProps {
   uploadPost: UploadPost;
 }
 
-const FormHomePostComponent: React.FunctionComponent<IProps> = ({ uploadPost }) => {
+const FormHomePostComponent: FC<IProps> = ({ uploadPost }) => {
   const [text, setText] = useState('');
-  const onChange = (e: React.SyntheticEvent<HTMLTextAreaElement>): void => {
-    e.preventDefault();
-    const onChangeText = e.currentTarget.value;
+  const onChange: TextAreaEvent = (event) => {
+    event.preventDefault();
+    const onChangeText = event.currentTarget.value;
     setText(onChangeText);
   };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
+  const onSubmit: FormEventType = (event) => {
+    event.preventDefault();
     if (text.length < 5) {
       alert('글자수가 너무 적습니다(5자 이상 써주세요)');
       return;

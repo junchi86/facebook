@@ -1,7 +1,7 @@
-import React from 'react';
-import Card from '../../components/Card/Card';
-import { State, UploadPost, UploadComment, UpLikes } from '../../Types';
-import FormHomePostComponent from '../../components/Form/FormHomePostComponent';
+import React, { FC } from 'react';
+import { State, UploadPost, UploadComment, UpLikes } from 'Types';
+import FormHomePostComponent from 'components/Form/FormHomePostComponent';
+import Post from 'components/Post/PostContainer';
 
 interface IProps {
   state: State;
@@ -10,11 +10,11 @@ interface IProps {
   upLikes: UpLikes;
 }
 
-const HomePresenter: React.FunctionComponent<IProps> = ({ state, uploadPost, uploadComment, upLikes }) => {
+const HomePresenter: FC<IProps> = ({ state, uploadComment, upLikes, uploadPost }) => {
   return (
     <div className="posts container">
       {Object.keys(state.user).length > 0 && <FormHomePostComponent uploadPost={uploadPost} />}
-      <Card state={state} uploadPost={uploadPost} uploadComment={uploadComment} upLikes={upLikes} />
+      <Post state={state} uploadComment={uploadComment} upLikes={upLikes} />
     </div>
   );
 };

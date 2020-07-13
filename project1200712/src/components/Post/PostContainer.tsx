@@ -1,17 +1,16 @@
-import React from 'react';
-import CardBody from './CardBody';
-import CardComment from './CardComment';
-import { State, UploadPost, UploadComment, UpLikes } from '../../Types';
-import FormHomeCommentComponent from '../Form/FormHomeCommentComponent';
+import React, { FC } from 'react';
+import PostContent from './PostContent';
+import PostComment from './PostComment';
+import { State, UploadComment, UpLikes } from 'Types';
+import FormHomeCommentComponent from 'components/Form/FormHomeCommentComponent';
 
 interface IProps {
   state: State;
-  uploadPost: UploadPost;
   uploadComment: UploadComment;
   upLikes: UpLikes;
 }
 
-const Card: React.FunctionComponent<IProps> = ({ state, uploadPost, uploadComment, upLikes }) => {
+const PostContainer: FC<IProps> = ({ state, uploadComment, upLikes }) => {
   const copyPosts = [...state.posts];
   const sortedPosts = copyPosts.sort((a, b) => {
     return b.seq - a.seq;
@@ -21,8 +20,8 @@ const Card: React.FunctionComponent<IProps> = ({ state, uploadPost, uploadCommen
       {sortedPosts.length > 0 &&
         sortedPosts.map((post) => (
           <div key={post.seq} className="card">
-            <CardBody post={post} upLikes={upLikes} />
-            <CardComment seq={post.seq} commentList={post.commentList} />
+            <PostContent post={post} upLikes={upLikes} />
+            <PostComment commentList={post.commentList} />
             {Object.keys(state.user).length > 0 && (
               <FormHomeCommentComponent postSeq={post.seq} uploadComment={uploadComment} />
             )}
@@ -40,4 +39,4 @@ const Card: React.FunctionComponent<IProps> = ({ state, uploadPost, uploadCommen
   );
 };
 
-export default Card;
+export default PostContainer;

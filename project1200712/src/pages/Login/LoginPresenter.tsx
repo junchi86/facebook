@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Login } from '../../Types';
-import FormLoginComponent from '../../components/Form/FormLoginComponent';
+import { Login } from 'Types';
+import FormLoginComponent from 'components/Form/FormLoginComponent';
 
 interface IProps {
   login: Login;
 }
 
-const LoginPresenter: React.FunctionComponent<IProps> = ({ login }) => {
+const LoginPresenter: FC<IProps> = ({ login }) => {
   return (
     <>
       <div className="login container">

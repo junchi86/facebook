@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { UploadComment } from '../../Types';
+import React, { useState, FC } from 'react';
+import { UploadComment, TextAreaEvent, FormEventType } from 'Types';
 
 interface IProps {
   uploadComment: UploadComment;
   postSeq: number;
 }
 
-const FormHomeCommentComponent: React.FunctionComponent<IProps> = ({ uploadComment, postSeq }) => {
+const FormHomeCommentComponent: FC<IProps> = ({ uploadComment, postSeq }) => {
   const [text, setText] = useState('');
-  const onChange = (e: React.SyntheticEvent<HTMLTextAreaElement>): void => {
-    e.preventDefault();
-    const onChangeText = e.currentTarget.value;
+  const onChange: TextAreaEvent = (event) => {
+    event.preventDefault();
+    const onChangeText = event.currentTarget.value;
     setText(onChangeText);
   };
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
+  const onSubmit: FormEventType = (event) => {
+    event.preventDefault();
     if (text.length < 5) {
       alert('글자수가 너무 적습니다(5자 이상 써주세요)');
       return;

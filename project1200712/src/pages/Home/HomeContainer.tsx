@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { FC } from 'react';
 import HomePresenter from './HomePresenter';
-import { State, UploadPost, UploadComment, UpLikes } from '../../Types';
+import { UploadPost, UploadComment, UpLikes, State } from 'Types';
 
 interface IProps {
   state: State;
@@ -9,7 +9,7 @@ interface IProps {
   upLikes: UpLikes;
 }
 
-const HomeContainer: React.FunctionComponent<IProps> = ({ state, uploadPost, uploadComment, upLikes }) => {
+const HomeContainer: FC<IProps> = ({ state, uploadPost, uploadComment, upLikes }) => {
   return <HomePresenter state={state} uploadPost={uploadPost} uploadComment={uploadComment} upLikes={upLikes} />;
 };
 
