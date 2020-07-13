@@ -6,9 +6,6 @@ styled-jsx 콘솔 오류.
 
 ## shonjiho님 리뷰
 
-<detail>
-<summary>접기/펼치기</summary>
-
 User | any is same with any
 의도는 이게 아니었을까요? User | null
 
@@ -94,8 +91,6 @@ Reuse Type!
 ```
 완료!
 ```
-
-</detail>
 
 # 1주차 프로젝트 완성 및 회고
 
