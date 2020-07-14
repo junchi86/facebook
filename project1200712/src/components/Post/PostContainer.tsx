@@ -12,9 +12,7 @@ interface IProps {
 
 const PostContainer: FC<IProps> = ({ state, uploadComment, upLikes }) => {
   const copyPosts = [...state.posts];
-  const sortedPosts = copyPosts.sort((a, b) => {
-    return b.seq - a.seq;
-  });
+  const sortedPosts = copyPosts.sort((a, b) => b.seq - a.seq);
   return (
     <>
       {sortedPosts.length > 0 &&
@@ -22,9 +20,7 @@ const PostContainer: FC<IProps> = ({ state, uploadComment, upLikes }) => {
           <div key={post.seq} className="card">
             <PostContent post={post} upLikes={upLikes} />
             <PostComment commentList={post.commentList} />
-            {Object.keys(state.user).length > 0 && (
-              <FormHomeCommentComponent postSeq={post.seq} uploadComment={uploadComment} />
-            )}
+            {state.user.seq !== null && <FormHomeCommentComponent postSeq={post.seq} uploadComment={uploadComment} />}
           </div>
         ))}
       <style jsx>{`

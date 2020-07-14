@@ -1,25 +1,41 @@
-# PR 리뷰
+# PR 리뷰 - 디플로이 버전 : http://junchi86.github.io/facebook
 
 새로 인지한 문제
 
-styled-jsx 콘솔 오류.
+styled-jsx 콘솔 오류. // 빌드와 실행에는 문제가 없는 것으로 보임.
 
-## shonjiho님 리뷰
+```
+
+react-dom.development.js:88 Warning: Received `true` for a non-boolean attribute `jsx`.
+
+If you want to write it to the DOM, pass a string instead: jsx="true" or jsx={value.toString()}.
+    in style (created by NavigationPublic)
+    in NavigationPublic (created by PublicLayout)
+    in PublicLayout (created by RouterComponent)
+    in Router (created by HashRouter)
+    in HashRouter (created by RouterComponent)
+    in RouterComponent (created by App)
+    in App
+printWarning @ react-dom.development.js:88
+react-dom.development.js:88 Warning: Received `true` for a non-boolean attribute `global`.
+
+If you want to write it to the DOM, pass a string instead: global="true" or global={value.toString()}.
+    in style (created by App)
+    in App
+
+
+```
+
+## shonjiho님 리뷰 - 모두 완료.
 
 User | any is same with any
 의도는 이게 아니었을까요? User | null
 
 ```
-미완료 - any가 아닌 경우 계속 타입에 걸립니다.
-         이니셜에서 빈 객체만 줄 경우
-         유저 오브젝트 내 seq,name,profileImageUrl을
-         계속 요구합니다.
-         방법을 찾는 중입니다.
+완료 - 교훈 - initialState를 객체로 줬을 때 내부 키값들을 제대로 정의하지 않고 진행하면 대참사가 생깁니다.
 ```
 
 ---
-
-아래는 모두 완료..
 
 const App:React.FC = () => {...}
 How about using FC instead of FunctionComponent?

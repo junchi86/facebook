@@ -13,7 +13,7 @@ interface IProps {
 const HomePresenter: FC<IProps> = ({ state, uploadComment, upLikes, uploadPost }) => {
   return (
     <div className="posts container">
-      {Object.keys(state.user).length > 0 && <FormHomePostComponent uploadPost={uploadPost} />}
+      {state.user.seq !== null && <FormHomePostComponent uploadPost={uploadPost} />}
       <Post state={state} uploadComment={uploadComment} upLikes={upLikes} />
     </div>
   );

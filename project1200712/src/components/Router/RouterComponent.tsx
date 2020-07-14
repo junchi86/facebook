@@ -19,7 +19,7 @@ interface IProps {
 const RouterComponent: FC<IProps> = ({ state, logout, login, uploadPost, uploadComment, upLikes }) => {
   return (
     <Router>
-      {Object.keys(state.user).length > 0 ? (
+      {state.user.seq !== null ? (
         <DefaultLayout state={state} logout={logout}>
           <Route
             path="/"

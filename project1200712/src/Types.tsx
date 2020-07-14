@@ -2,11 +2,11 @@ import { SyntheticEvent, MouseEvent, FormEvent } from 'react';
 
 //state 관련 타입
 export type State = {
-  user: User | any;
+  user: User;
   posts: Post[];
 };
 export type User = {
-  seq: number;
+  seq: number | null;
   name: string;
   profileImageUrl: string;
 };

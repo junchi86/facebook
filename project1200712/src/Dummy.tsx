@@ -7,8 +7,9 @@ export const PostList = [
       profileImageUrl:
         'https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png',
     },
-    contents: '안녕하세요. 다같이 리엑트를 배워봅시다. 리덕스도 물런 배워야죠',
-    createAt: '10분전',
+    contents:
+      '안녕하세요. Email : harry@naver.com Password : harry harry 입니다. 글냄겨주세요.  회원 가입 가능, 댓글도 되고 좋아요 가능해요!',
+    createAt: new Date().toLocaleDateString(),
     likes: 4,
     comments: 1,
     likesOfMe: false,
@@ -21,8 +22,8 @@ export const PostList = [
           profileImageUrl:
             'https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png',
         },
-        contents: '그래요 배워야죠 배워야 남는거죠...',
-        createAt: '10분전',
+        contents: '접속해서 테스트 해보세요! 안되면 얘기해 주세요 ㅎㅎ',
+        createAt: new Date().toLocaleDateString(),
       },
     ],
   },

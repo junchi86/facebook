@@ -5,7 +5,7 @@ import RouterComponent from 'components/Router/RouterComponent';
 
 const App: FC = () => {
   const initialState: State = {
-    user: {},
+    user: { seq: null, name: '', profileImageUrl: '' },
     posts: PostList,
   };
   const [state, setState] = useState(initialState);
@@ -24,7 +24,7 @@ const App: FC = () => {
   };
   const logout: Logout = (e) => {
     e.preventDefault();
-    setState((prev) => ({ ...prev, user: {} }));
+    setState((prev) => ({ ...prev, user: { seq: null, name: '', profileImageUrl: '' } }));
   };
 
   const uploadPost: UploadPost = (text) => {
@@ -39,7 +39,7 @@ const App: FC = () => {
           profileImageUrl: user.profileImageUrl,
         },
         contents: text,
-        createAt: String(new Date()),
+        createAt: new Date().toLocaleDateString(),
         likes: 0,
         comments: 0,
         likesOfMe: false,
@@ -66,7 +66,7 @@ const App: FC = () => {
             'https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png',
         },
         contents: text,
-        createAt: String(new Date()),
+        createAt: new Date().toLocaleDateString(),
       };
       post.commentList = [...post.commentList, commentedPost];
       post.comments = post.commentList.length;
@@ -77,7 +77,7 @@ const App: FC = () => {
   };
   const upLikes: UpLikes = (seq) => {
     const user = state.user;
-    if (Object.keys(user).length > 0) {
+    if (user.seq !== null) {
       const copyState = { ...state };
       if (!copyState.posts[seq].likesOfMe) {
         copyState.posts[seq].likes = copyState.posts[seq].likes + 1;
