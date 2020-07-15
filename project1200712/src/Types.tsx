@@ -27,6 +27,12 @@ export type Comment = {
   contents: string;
   createAt: string;
 };
+export type IHomeProps = {
+  state: RootState;
+  uploadPost: UploadPost;
+  uploadComment: UploadComment;
+  upLikes: UpLikes;
+};
 
 //함수 관련 타입
 export type InputEvent = (event: SyntheticEvent<HTMLInputElement>) => void;

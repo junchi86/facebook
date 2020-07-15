@@ -4,13 +4,15 @@ import { Route } from 'react-router-dom';
 
 interface IProps {
   component: FC<any>;
+  path: string;
+  exact: boolean;
 }
 
-const PublicLayout: FC<IProps> = ({ component: Component }) => {
+const PublicLayout: FC<IProps> = ({ component: Component, ...rest }) => {
   return (
     <>
       <NavigationPublic />
-      <Component />
+      <Route {...rest} render={(props) => <Component {...props} />} />
     </>
   );
 };

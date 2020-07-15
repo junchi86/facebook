@@ -19,42 +19,30 @@ interface IProps {
 const RouterComponent: FC<IProps> = ({ state, logout, login, uploadPost, uploadComment, upLikes }) => {
   return (
     <Router>
-      {state.user.seq === null ? (
-        <PublicLayout
-          component={() => (
-            <Switch>
-              <Route
-                path="/"
-                exact
-                render={() => (
-                  <HomeContainer
-                    uploadPost={uploadPost}
-                    uploadComment={uploadComment}
-                    upLikes={upLikes}
-                    state={state}
-                  />
-                )}
-              />
-              <Route path="/login/" exact render={() => <LoginContainer login={login} />} />
-              <Route path="/signup/" exact render={() => <SignUpContainer login={login} />} />
-            </Switch>
-          )}
-        />
-      ) : (
-        <DefaultLayout
-          state={state}
-          logout={logout}
-          component={() => (
-            <Route
-              path="/"
-              exact
-              render={() => (
-                <HomeContainer uploadPost={uploadPost} uploadComment={uploadComment} upLikes={upLikes} state={state} />
-              )}
-            />
-          )}
-        />
-      )}
+      <Switch>
+        {state.user.seq === null ? (
+          <PublicLayout
+            path="/"
+            exact
+            component={() => (
+              <HomeContainer uploadPost={uploadPost} uploadComment={uploadComment} upLikes={upLikes} state={state} />
+            )}
+          />
+        ) : (
+          <DefaultLayout
+            path="/"
+            exact
+            state={state}
+            logout={logout}
+            component={() => (
+              <HomeContainer uploadPost={uploadPost} uploadComment={uploadComment} upLikes={upLikes} state={state} />
+            )}
+          />
+        )}
+        <PublicLayout path="/login/" exact component={() => <LoginContainer login={login} />} />
+        <PublicLayout path="/signup/" exact component={() => <SignUpContainer login={login} />} />
+      </Switch>
+
       <Redirect from="*" to="/" />
     </Router>
   );
