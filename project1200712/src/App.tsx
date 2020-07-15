@@ -12,10 +12,10 @@ const App: FC = () => {
 
   const login = (logUser: LogUser): void => {
     try {
-      const emailFilter = userList.filter((user) => user.user.email === logUser.email);
-      if (emailFilter.length === 1) {
-        const passFilter = userList.filter((user) => user.user.password === logUser.password);
-        setState((prev) => ({ ...prev, user: passFilter[0].user }));
+      const isEmailExist = userList.filter((user) => user.user.email === logUser.email);
+      if (isEmailExist.length === 1) {
+        const matchedPassword = userList.filter((user) => user.user.password === logUser.password);
+        setState({ ...state, user: matchedPassword[0].user });
         return;
       }
     } catch (error) {
@@ -24,12 +24,14 @@ const App: FC = () => {
   };
   const logout: Logout = (e) => {
     e.preventDefault();
-    setState((prev) => ({ ...prev, user: { seq: null, name: '', profileImageUrl: '' } }));
+    const user = initialState.user;
+    setState({ ...state, user });
   };
 
   const uploadPost: UploadPost = (text) => {
     try {
       const user = state.user;
+      const posts = state.posts;
       const post = {
         seq: state.posts.length,
         writer: {
@@ -44,8 +46,8 @@ const App: FC = () => {
         likesOfMe: [],
         commentList: [],
       };
-      const mergeState = { ...state, posts: [...state.posts, post] };
-      setState({ ...state, ...mergeState });
+      posts.push(post);
+      setState({ ...state, posts });
     } catch (error) {
       console.log(error);
     }
@@ -53,9 +55,9 @@ const App: FC = () => {
 
   const uploadComment: UploadComment = (seq, text) => {
     try {
-      const copyState = { ...state };
-      const user = { ...copyState.user };
-      const post = copyState.posts[seq];
+      const user = state.user;
+      const posts = state.posts;
+      const post = posts[seq];
       const commentedPost = {
         seq: post.commentList.length,
         writer: {
@@ -69,7 +71,7 @@ const App: FC = () => {
       };
       post.commentList = [...post.commentList, commentedPost];
       post.comments = post.commentList.length;
-      setState({ ...state, ...copyState });
+      setState({ ...state, posts });
     } catch (error) {
       console.log(error);
     }
@@ -79,18 +81,20 @@ const App: FC = () => {
     if (user.seq === null) {
       return;
     }
-    const copyState = { ...state };
-    const likesOfMe = copyState.posts[seq].likesOfMe;
+    const posts = state.posts;
+    const post = posts[seq];
+    const likesOfMe = post.likesOfMe;
     const lengthOfLikesOfMe = likesOfMe.filter((seq) => seq === user.seq).length;
+
     if (lengthOfLikesOfMe === 0) {
-      copyState.posts[seq].likes = copyState.posts[seq].likes + 1;
+      post.likes = post.likes + 1;
       likesOfMe.push(user.seq);
-      return setState((prev) => ({ ...prev, copyState }));
+      return setState({ ...state, posts });
     } else {
-      copyState.posts[seq].likes = copyState.posts[seq].likes - 1;
+      post.likes = post.likes - 1;
       const index = likesOfMe.indexOf(user.seq);
       likesOfMe.splice(index, 1);
-      return setState((prev) => ({ ...prev, copyState }));
+      return setState({ ...state, posts });
     }
   };
   return (
