@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import PostContent from './PostContent';
 import PostComment from './PostComment';
-import { State, UploadComment, UpLikes } from 'Types';
+import { RootState, UploadComment, UpLikes } from 'Types';
 import FormHomeCommentComponent from 'components/Form/FormHomeCommentComponent';
 
 interface IProps {
-  state: State;
+  state: RootState;
   uploadComment: UploadComment;
   upLikes: UpLikes;
 }

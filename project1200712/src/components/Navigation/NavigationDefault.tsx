@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { State, Logout } from 'Types';
+import { RootState, Logout } from 'Types';
 
 interface IProps {
-  state: State;
+  state: RootState;
   logout: Logout;
 }
 

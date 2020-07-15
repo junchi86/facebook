@@ -1,12 +1,12 @@
 import React, { useState, FC } from 'react';
-import { userList, PostList } from 'Dummy';
-import { State, LogUser, Logout, UploadPost, UploadComment, UpLikes } from 'Types';
+import { userList, postList } from 'Dummy';
+import { RootState, LogUser, Logout, UploadPost, UploadComment, UpLikes } from 'Types';
 import RouterComponent from 'components/Router/RouterComponent';
 
 const App: FC = () => {
-  const initialState: State = {
+  const initialState: RootState = {
     user: { seq: null, name: '', profileImageUrl: '' },
-    posts: PostList,
+    posts: postList,
   };
   const [state, setState] = useState(initialState);
 
@@ -29,10 +29,9 @@ const App: FC = () => {
 
   const uploadPost: UploadPost = (text) => {
     try {
-      const copyState = { ...state };
-      const user = copyState.user;
+      const user = state.user;
       const post = {
-        seq: copyState.posts.length,
+        seq: state.posts.length,
         writer: {
           seq: user.seq,
           name: user.name,
@@ -42,10 +41,10 @@ const App: FC = () => {
         createAt: new Date().toLocaleDateString(),
         likes: 0,
         comments: 0,
-        likesOfMe: false,
+        likesOfMe: [],
         commentList: [],
       };
-      const mergeState = { ...copyState, posts: [...copyState.posts, post] };
+      const mergeState = { ...state, posts: [...state.posts, post] };
       setState({ ...state, ...mergeState });
     } catch (error) {
       console.log(error);
@@ -77,17 +76,21 @@ const App: FC = () => {
   };
   const upLikes: UpLikes = (seq) => {
     const user = state.user;
-    if (user.seq !== null) {
-      const copyState = { ...state };
-      if (!copyState.posts[seq].likesOfMe) {
-        copyState.posts[seq].likes = copyState.posts[seq].likes + 1;
-        copyState.posts[seq].likesOfMe = true;
-        return setState((prev) => ({ ...prev, copyState }));
-      } else {
-        copyState.posts[seq].likes = copyState.posts[seq].likes - 1;
-        copyState.posts[seq].likesOfMe = false;
-        return setState((prev) => ({ ...prev, copyState }));
-      }
+    if (user.seq === null) {
+      return;
+    }
+    const copyState = { ...state };
+    const likesOfMe = copyState.posts[seq].likesOfMe;
+    const lengthOfLikesOfMe = likesOfMe.filter((seq) => seq === user.seq).length;
+    if (lengthOfLikesOfMe === 0) {
+      copyState.posts[seq].likes = copyState.posts[seq].likes + 1;
+      likesOfMe.push(user.seq);
+      return setState((prev) => ({ ...prev, copyState }));
+    } else {
+      copyState.posts[seq].likes = copyState.posts[seq].likes - 1;
+      const index = likesOfMe.indexOf(user.seq);
+      likesOfMe.splice(index, 1);
+      return setState((prev) => ({ ...prev, copyState }));
     }
   };
   return (

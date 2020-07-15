@@ -1,17 +1,18 @@
-import React, { FC } from 'react';
-import { State, Logout } from 'Types';
+import React, { FC, ReactNode } from 'react';
+import { RootState, Logout, Login } from 'Types';
 import NavigationDefault from 'components/Navigation/NavigationDefault';
 
 interface IProps {
-  state: State;
+  state: RootState;
   logout: Logout;
+  component: FC<any>;
 }
 
-const DefaultLayout: FC<IProps> = ({ state, children, logout }) => {
+const DefaultLayout: FC<IProps> = ({ component: Component, ...rest }) => {
   return (
     <>
-      <NavigationDefault state={state} logout={logout} />
-      {children}
+      <NavigationDefault {...rest} />
+      <Component />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { SyntheticEvent, MouseEvent, FormEvent } from 'react';
 
 //state 관련 타입
-export type State = {
+export type RootState = {
   user: User;
   posts: Post[];
 };
@@ -17,7 +17,7 @@ export type Post = {
   createAt: string;
   likes: number;
   comments: number;
-  likesOfMe: boolean;
+  likesOfMe: number[];
   commentList: CommentList;
 };
 export type CommentList = Comment[];

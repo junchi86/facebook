@@ -26,6 +26,96 @@ If you want to write it to the DOM, pass a string instead: global="true" or glob
 
 ```
 
+## jindev 님 리뷰.
+
+PostList -> postList 로 변경해서 userList 와 통일 시키는게 좋을것같습니다. app
+
+```
+완료
+```
+
+State 만으로는 어떤 상태인지 알기가 쉽지 않네요.
+InitialState 또는 RootState 는 어떨까요? app
+
+```
+완료
+```
+
+로그인한 사용자를 나타내는 값이기 때문에 로그인이 안되어 있다면 null 이 적절할것 같습니다. 위와 같이 초기화 하면 나중에 user 인데 왜 seq, name, profileImageUrl 이 없지? 버그인가? 라고 생각할수 있기때문입니다. app
+
+```
+완료
+```
+
+제 생각에는 key의 이름이 좀 헷갈리는것 같습니다.
+보통 contents, likes, comments 이런식으로 복수형이면 content[], like[], comment[] 와 같이 해당 요소의 배열이라고 생각하는것 같습니다. 해당 요소의 갯수를 나타내기 위해서는 likeCnt 와 같이 ~의 숫자다 이런식으로 정해주면 좀더 명확한것 같습니다. types
+
+```
+완료
+```
+
+위에서 언급했듯이 로그아웃시엔 user 를 null 로 하는것이 좋을것 같습니다.
+기존의 코드에서 user 의 타입이 변경되면 굳이 변경이 필요하지 않은 로그아웃쪽도 바꾸어주어야 하기 때문입니다. app
+
+```
+미완료
+```
+
+setState 는 기본적으로 merge 작업을 내부적으로 하기때문에 굳이 복사를 반복하지 않으셔도 될것 같습니다. app
+
+```
+완료
+```
+
+if (!user.seq) return 또는 없을 경우에 대한 로직.
+을 먼저 하면 if 안에 if 를 안써도 되서 가독성이 조금 좋아질것 같습니다. app
+
+```
+완료
+```
+
+container와 presenter 로 나누신 이유가 있을까요? 제 생각에는 container 가 하는일이 없어서 굳이 둘로 나눌 필요가 있을까싶습니다. signup
+
+```
+완료
+```
+
+https://simonsmith.io/reusing-layouts-in-react-router-4
+를 참고하셔서 만드시면 좋을것 같습니다. public
+
+```
+완료!
+```
+
+이런식으로 표현된다면 가독성이 좀더 좋을것 같습니다.
+https://github.com/learn-programmers/prgrms-rct-4/pull/8/files
+를 참고하시면 좋을것 같네요. router
+
+```
+완료!
+```
+
+commentList.length && commentList.map .... 로 하시면 삼항식보다 간단히 표현할수 있습니다! postcomment
+
+```
+완료!
+```
+
+const isExistEmail = !!userList.filter...
+와 같이 하면 변수명이 좀더 직관적인것 같습니다 ㅎ formsignup
+
+```
+완료!
+```
+
+이미 위에서 emailFilter.length === 1 를 확인하고 조기 리턴하기 떄문에 여기서는 if 문이 불필요해 보입니다. formsignup
+
+```
+완료!
+```
+
+---
+
 ## shonjiho님 리뷰 - 모두 완료.
 
 User | any is same with any
@@ -34,8 +124,6 @@ User | any is same with any
 ```
 완료 - 교훈 - initialState를 객체로 줬을 때 내부 키값들을 제대로 정의하지 않고 진행하면 대참사가 생깁니다.
 ```
-
----
 
 const App:React.FC = () => {...}
 How about using FC instead of FunctionComponent?

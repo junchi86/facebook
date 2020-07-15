@@ -5,10 +5,10 @@ import HomeContainer from 'pages/Home';
 import DefaultLayout from 'layouts/DefaultLayout/DefaultLayout';
 import LoginContainer from 'pages/Login';
 import SignUpContainer from 'pages/SignUp';
-import { Logout, State, Login, UploadPost, UploadComment, UpLikes } from '../../Types';
+import { Logout, RootState, Login, UploadPost, UploadComment, UpLikes } from '../../Types';
 
 interface IProps {
-  state: State;
+  state: RootState;
   logout: Logout;
   login: Login;
   uploadPost: UploadPost;
@@ -19,19 +19,32 @@ interface IProps {
 const RouterComponent: FC<IProps> = ({ state, logout, login, uploadPost, uploadComment, upLikes }) => {
   return (
     <Router>
-      {state.user.seq !== null ? (
-        <DefaultLayout state={state} logout={logout}>
-          <Route
-            path="/"
-            exact
-            render={() => (
-              <HomeContainer uploadPost={uploadPost} uploadComment={uploadComment} upLikes={upLikes} state={state} />
-            )}
-          />
-        </DefaultLayout>
+      {state.user.seq === null ? (
+        <PublicLayout
+          component={() => (
+            <Switch>
+              <Route
+                path="/"
+                exact
+                render={() => (
+                  <HomeContainer
+                    uploadPost={uploadPost}
+                    uploadComment={uploadComment}
+                    upLikes={upLikes}
+                    state={state}
+                  />
+                )}
+              />
+              <Route path="/login/" exact render={() => <LoginContainer login={login} />} />
+              <Route path="/signup/" exact render={() => <SignUpContainer login={login} />} />
+            </Switch>
+          )}
+        />
       ) : (
-        <PublicLayout>
-          <Switch>
+        <DefaultLayout
+          state={state}
+          logout={logout}
+          component={() => (
             <Route
               path="/"
               exact
@@ -39,10 +52,8 @@ const RouterComponent: FC<IProps> = ({ state, logout, login, uploadPost, uploadC
                 <HomeContainer uploadPost={uploadPost} uploadComment={uploadComment} upLikes={upLikes} state={state} />
               )}
             />
-            <Route path="/login/" exact render={() => <LoginContainer login={login} />} />
-            <Route path="/signup/" exact render={() => <SignUpContainer login={login} />} />
-          </Switch>
-        </PublicLayout>
+          )}
+        />
       )}
       <Redirect from="*" to="/" />
     </Router>

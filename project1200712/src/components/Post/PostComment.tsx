@@ -9,19 +9,18 @@ const PostComment: FC<IProps> = ({ commentList }) => {
   return (
     <>
       <ul className="comment-list">
-        {commentList.length > 0
-          ? commentList.map((comment, i) => {
-              return (
-                <li key={i} className="comment">
-                  <div className="comment-info">
-                    <h6 className="comment-writer">{comment.writer.name}</h6>
-                    <div className="comment-datetime">{comment.createAt}</div>
-                  </div>
-                  <p className="comment-text">{comment.contents}</p>
-                </li>
-              );
-            })
-          : null}
+        {commentList.length > 0 &&
+          commentList.map((comment, i) => {
+            return (
+              <li key={i} className="comment">
+                <div className="comment-info">
+                  <h6 className="comment-writer">{comment.writer.name}</h6>
+                  <div className="comment-datetime">{comment.createAt}</div>
+                </div>
+                <p className="comment-text">{comment.contents}</p>
+              </li>
+            );
+          })}
       </ul>
       <style jsx>{`
         ul.comment-list {

@@ -43,8 +43,8 @@ const FormSignUpComponent: FC<IProps> = ({ login }) => {
       posts: [],
     };
     try {
-      const emailFilter = userList.filter((listUser) => listUser.user.email === user.user.email);
-      if (emailFilter.length === 1) {
+      const isExistEmail = userList.filter((listUser) => listUser.user.email === user.user.email);
+      if (isExistEmail.length) {
         alert('이메일이 이미 등록되어 있습니다.');
         return history.push('/');
       }
@@ -52,14 +52,14 @@ const FormSignUpComponent: FC<IProps> = ({ login }) => {
         alert('비밀번호가 일치하지 않습니다.');
         return history.push('/');
       }
-      if (emailFilter.length === 0) {
-        userList.push(user);
-        const logUser = { email: user.user.email, password: user.user.password };
-        login(logUser);
-        return history.push('/');
-      }
+      userList.push(user);
+      const logUser = { email: user.user.email, password: user.user.password };
+      login(logUser);
+      alert('회원가입과 로그인에 성공했습니다.');
+      return history.push('/');
     } catch (error) {
       console.log(error);
+      alert('회원가입에 실패했습니다.');
       return history.push('/');
     }
   };

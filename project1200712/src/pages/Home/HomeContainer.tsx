@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
 import HomePresenter from './HomePresenter';
-import { UploadPost, UploadComment, UpLikes, State } from 'Types';
+import { UploadPost, UploadComment, UpLikes, RootState } from 'Types';
 
 interface IProps {
-  state: State;
+  state: RootState;
   uploadPost: UploadPost;
   uploadComment: UploadComment;
   upLikes: UpLikes;

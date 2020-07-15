@@ -1,4 +1,4 @@
-export const PostList = [
+export const postList = [
   {
     seq: 0,
     writer: {
@@ -12,7 +12,7 @@ export const PostList = [
     createAt: new Date().toLocaleDateString(),
     likes: 4,
     comments: 1,
-    likesOfMe: false,
+    likesOfMe: [],
     commentList: [
       {
         seq: 0,
