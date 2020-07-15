@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { useState, FC, memo } from 'react';
 import { UploadComment, TextAreaEvent, FormEventType } from 'Types';
 
 interface IProps {
@@ -57,4 +57,4 @@ const FormHomeCommentComponent: FC<IProps> = ({ uploadComment, postSeq }) => {
   );
 };
 
-export default FormHomeCommentComponent;
+export default memo(FormHomeCommentComponent);

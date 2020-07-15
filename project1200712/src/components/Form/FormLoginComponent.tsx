@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { useState, FC, memo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Login, InputEvent, FormEventType } from 'Types';
 
@@ -52,4 +52,4 @@ const FormLoginComponent: FC<IProps> = ({ login }) => {
   );
 };
 
-export default FormLoginComponent;
+export default memo(FormLoginComponent);

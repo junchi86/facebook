@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { useState, FC, memo } from 'react';
 import { userList } from 'Dummy';
 import { useHistory } from 'react-router-dom';
 import { Login, InputEvent, FormEventType } from 'Types';
@@ -63,6 +63,7 @@ const FormSignUpComponent: FC<IProps> = ({ login }) => {
       return history.push('/');
     }
   };
+  console.log(email);
   return (
     <form onSubmit={onSubmit}>
       <input
@@ -106,4 +107,4 @@ const FormSignUpComponent: FC<IProps> = ({ login }) => {
   );
 };
 
-export default FormSignUpComponent;
+export default memo(FormSignUpComponent);
