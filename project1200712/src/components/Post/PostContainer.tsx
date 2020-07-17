@@ -20,7 +20,7 @@ const PostContainer: FC<IProps> = ({ state, uploadComment, upLikes }) => {
           <div key={post.seq} className="card">
             <PostContent post={post} upLikes={upLikes} />
             <PostComment commentList={post.commentList} />
-            {state.user.seq !== null && <FormHomeCommentComponent postSeq={post.seq} uploadComment={uploadComment} />}
+            {state.user && <FormHomeCommentComponent postSeq={post.seq} uploadComment={uploadComment} />}
           </div>
         ))}
       <style jsx>{`

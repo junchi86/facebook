@@ -20,7 +20,7 @@ const RouterComponent: FC<IProps> = ({ state, logout, login, uploadPost, uploadC
   return (
     <Router>
       <Switch>
-        {state.user.seq === null ? (
+        {state.user ? (
           <PublicLayout
             path="/"
             exact

@@ -18,12 +18,12 @@ const NavigationDefault: FC<IProps> = ({ state, logout }) => {
           <>
             <li className="nav-item">
               <Link to="/" className="nav-link">
-                {state.user.name}
+                {state.user?.name}
               </Link>
             </li>
             <li className="nav-item">
               <Link to="/" className="nav-link">
-                <img alt="user image" src={state.user.profileImageUrl} />
+                <img alt="user image" src={state.user?.profileImageUrl} />
               </Link>
             </li>
             <li className="nav-item">

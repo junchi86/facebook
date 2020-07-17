@@ -63,7 +63,6 @@ const FormSignUpComponent: FC<IProps> = ({ login }) => {
       return history.push('/');
     }
   };
-  console.log(email);
   return (
     <form onSubmit={onSubmit}>
       <input

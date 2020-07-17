@@ -5,7 +5,7 @@ import RouterComponent from 'components/Router/RouterComponent';
 
 const App: FC = () => {
   const initialState: RootState = {
-    user: { seq: null, name: '', profileImageUrl: '' },
+    user: null,
     posts: postList,
   };
   const [state, setState] = useState(initialState);
@@ -24,12 +24,15 @@ const App: FC = () => {
   };
   const logout: Logout = (e) => {
     e.preventDefault();
-    const user = initialState.user;
+    const user = null;
     setState({ ...state, user });
   };
 
   const uploadPost: UploadPost = (text) => {
     try {
+      if (!state.user) {
+        return;
+      }
       const user = state.user;
       const posts = state.posts;
       const post = {
@@ -55,6 +58,9 @@ const App: FC = () => {
 
   const uploadComment: UploadComment = (seq, text) => {
     try {
+      if (!state.user) {
+        return;
+      }
       const user = state.user;
       const posts = state.posts;
       const post = posts[seq];
@@ -77,10 +83,10 @@ const App: FC = () => {
     }
   };
   const upLikes: UpLikes = (seq) => {
-    const user = state.user;
-    if (user.seq === null) {
+    if (!state.user) {
       return;
     }
+    const user = state.user;
     const posts = state.posts;
     const post = posts[seq];
     const likesOfMe = post.likesOfMe;
@@ -97,6 +103,7 @@ const App: FC = () => {
       return setState({ ...state, posts });
     }
   };
+
   return (
     <>
       <RouterComponent
