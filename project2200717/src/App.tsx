@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import Home from './pages/Home';
-import { HashRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import DefaultLayout from './layouts/DefaultLayout';
 import PublicLayout from './layouts/PublicLayout';
 import Login from './pages/Login';
@@ -9,13 +9,13 @@ import SignUp from './pages/SignUp';
 const App: FC = () => {
   return (
     <>
-      <HashRouter>
+      <BrowserRouter>
         <Switch>
           <PublicLayout path="/login" component={Login} />
           <PublicLayout path="/signup" component={SignUp} />
           <DefaultLayout path="/" component={Home} />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
       <style jsx global>{`
         * {
           box-sizing: border-box;

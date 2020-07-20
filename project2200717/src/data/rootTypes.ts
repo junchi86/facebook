@@ -8,8 +8,6 @@ export type UserTypes = {
   seq: number;
   name: string;
   profileImageUrl: string;
-  postIds: number[];
-  commentIds: number[];
 };
 
 export type PostTypes = {

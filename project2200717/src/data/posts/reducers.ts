@@ -1,6 +1,7 @@
 import { PostReducer, PostState, PostTypes } from 'data/rootTypes';
+import { DummyPosts } from 'data/Dummy';
 
-const initialState: PostState = { byId: [], allId: [] };
+const initialState: PostState = DummyPosts;
 
 const reducer: PostReducer = (state = initialState, action) => {
   switch (action.type) {

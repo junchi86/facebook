@@ -7,14 +7,19 @@ import { TButtonEvent } from 'Types';
 import { useDispatch, useSelector } from 'react-redux';
 import { likePost } from 'data/posts/actions';
 import { PostTypes, UserEntities, CommentEntities, RootReducer, UserTypes } from 'data/rootTypes';
+import { DummyUsers } from 'data/Dummy';
 
 interface IProps {
   post: PostTypes;
 }
 
 const Post: FC<IProps> = ({ post }) => {
-  const { seq, createdAt, contents, likes, likesOfMe } = post;
-  const user: UserTypes = useSelector((state: RootReducer) => state.user);
+  const { seq, writer, createdAt, contents, likes, likesOfMe } = post;
+  const userIdx = DummyUsers.allId.filter((i) => i === writer)[0];
+  if (!userIdx) {
+    return null;
+  }
+  const user = DummyUsers.byId.filter((i) => i.seq === userIdx)[0];
   const name = user.name;
   const rowComments: CommentEntities = useSelector((state: RootReducer) => state.comments);
   const commentList = rowComments.byId.filter((i) => i.postId === seq);

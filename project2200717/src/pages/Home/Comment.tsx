@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { CommentTypes, UserEntities, RootReducer, UserTypes } from 'data/rootTypes';
+import { DummyUsers } from 'data/Dummy';
 
 interface IProps {
   comment: CommentTypes;
@@ -9,7 +10,11 @@ interface IProps {
 
 const Comment: FC<IProps> = ({ comment }) => {
   const { createdAt, writer, contents } = comment;
-  const user: UserTypes = useSelector((state: RootReducer) => state.user);
+  const userIdx = DummyUsers.allId.filter((i) => i === writer)[0];
+  if (!userIdx) {
+    return null;
+  }
+  const user = DummyUsers.byId.filter((i) => i.seq === userIdx)[0];
   const name = user.name;
   const datetime = moment(createdAt).fromNow();
   return (

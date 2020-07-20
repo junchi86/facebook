@@ -1,8 +1,8 @@
 import { ADD_COMMENT } from './actionTypes';
 import { CommentReducer, CommentState, CommentTypes } from 'data/rootTypes';
-import { useDispatch } from 'react-redux';
+import { DummyComments } from 'data/Dummy';
 
-const initialState: CommentState = { byId: [], allId: [] };
+const initialState: CommentState = DummyComments;
 
 const reducer: CommentReducer = (state = initialState, action) => {
   switch (action.type) {
