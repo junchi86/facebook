@@ -1,14 +1,14 @@
 import React, { FC } from 'react';
 import { Route } from 'react-router-dom';
-import { PublicLayout } from 'Types';
+import { Layout } from 'Types';
 
-const PublicLayout: FC<PublicLayout> = ({ component: Component, ...rest }) => {
+const PublicLayout: FC<Layout> = ({ component: Component, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(matchProps) => (
         <>
-          <Component {...matchProps} {...rest} />
+          <Component {...matchProps} />
           <style jsx global>{`
             .container {
               padding: 0;

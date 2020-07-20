@@ -3,28 +3,26 @@ import classnames from 'classnames';
 import moment from 'moment';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
-import { Post, LikePost, AddComment, TButtonEvent } from 'Types';
+import { TButtonEvent } from 'Types';
+import { useDispatch, useSelector } from 'react-redux';
+import { likePost } from 'data/posts/actions';
+import { PostTypes, UserEntities, CommentEntities, RootReducer, UserTypes } from 'data/rootTypes';
 
 interface IProps {
-  post: Post;
-  onLikeClicked: LikePost;
-  onCommentSubmit: AddComment;
+  post: PostTypes;
 }
 
-const Post: FC<IProps> = ({ post, onLikeClicked, onCommentSubmit }) => {
-  const {
-    seq,
-    createdAt,
-    writer: { name },
-    contents,
-    likes,
-    likesOfMe,
-    commentList,
-  } = post;
+const Post: FC<IProps> = ({ post }) => {
+  const { seq, createdAt, contents, likes, likesOfMe } = post;
+  const user: UserTypes = useSelector((state: RootReducer) => state.user);
+  const name = user.name;
+  const rowComments: CommentEntities = useSelector((state: RootReducer) => state.comments);
+  const commentList = rowComments.byId.filter((i) => i.postId === seq);
   const datetime = moment(createdAt).fromNow();
+  const dispatch = useDispatch();
   const handleClickLikeButton: TButtonEvent = (e) => {
     e.preventDefault();
-    onLikeClicked(seq);
+    dispatch(likePost(seq));
   };
 
   return (
@@ -49,7 +47,7 @@ const Post: FC<IProps> = ({ post, onLikeClicked, onCommentSubmit }) => {
         </div>
       </div>
       <CommentList commentList={commentList} />
-      <CommentForm postSeq={seq} onCommentSubmit={onCommentSubmit} />
+      <CommentForm userSeq={user.seq} postSeq={seq} />
       <style jsx global>{`
         .card {
           padding: 0;

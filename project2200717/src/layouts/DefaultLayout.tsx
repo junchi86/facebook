@@ -1,17 +1,17 @@
-import React, { Component, FC } from 'react';
+import React, { FC } from 'react';
 import Navigation from '../components/Navigation';
 import { Route } from 'react-router-dom';
-import { DefaultLayout } from 'Types';
+import { Layout } from 'Types';
 
-const DefaultLayout: FC<DefaultLayout> = ({ component: Component, ...rest }) => {
-  const { user, logOut } = rest;
+const DefaultLayout: FC<Layout> = ({ component: Component, ...rest }) => {
   return (
     <Route
+      {...rest}
       render={(matchProps) => {
         return (
           <>
-            <Navigation user={user} onLogout={logOut} />
-            <Component {...matchProps} {...rest} />
+            <Navigation />
+            <Component {...matchProps} />
             <style jsx global>{`
               .container {
                 padding: 0;

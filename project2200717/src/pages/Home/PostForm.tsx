@@ -1,11 +1,14 @@
-import React, { Component, useState, FC } from 'react';
-import { TFormEvent, AddPost, TTextAreaEvent } from 'Types';
+import React, { useState, FC, memo } from 'react';
+import { TFormEvent, TTextAreaEvent } from 'Types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addPost } from 'data/posts/actions';
+import userSelecter from 'data/users/selectors';
+import { RootReducer } from 'data/rootTypes';
 
 interface IProps {
   minHeight?: number;
   lineHeight?: number;
   placeholder?: string;
-  onPostSubmit: AddPost;
 }
 
 interface IState {
@@ -13,17 +16,14 @@ interface IState {
 }
 const initialState: IState = { contents: '' };
 
-const PostForm: FC<IProps> = ({
-  minHeight = 100,
-  lineHeight = 20,
-  placeholder = '무슨 생각을 하고 계신가요?',
-  onPostSubmit,
-}) => {
+const PostForm: FC<IProps> = ({ minHeight = 100, lineHeight = 20, placeholder = '무슨 생각을 하고 계신가요?' }) => {
   const [state, setState] = useState(initialState);
   const { contents } = state;
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootReducer) => state.user);
   const handleFormSubmit: TFormEvent = (e) => {
     e.preventDefault();
-    onPostSubmit(contents);
+    dispatch(addPost(contents, user));
     setState({
       contents: '',
     });
@@ -33,7 +33,6 @@ const PostForm: FC<IProps> = ({
     setState({
       contents: e.currentTarget.value,
     });
-
   return (
     <form className="write-form" onSubmit={handleFormSubmit}>
       <textarea
@@ -78,4 +77,4 @@ const PostForm: FC<IProps> = ({
   );
 };
 
-export default PostForm;
+export default memo(PostForm);

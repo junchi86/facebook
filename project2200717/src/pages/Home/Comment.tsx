@@ -1,20 +1,21 @@
 import React, { FC } from 'react';
 import moment from 'moment';
-import PropTypes from 'prop-types';
-import { TComment } from 'Types';
+import { useSelector } from 'react-redux';
+import { CommentTypes, UserEntities, RootReducer, UserTypes } from 'data/rootTypes';
 
 interface IProps {
-  comment: TComment;
+  comment: CommentTypes;
 }
 
 const Comment: FC<IProps> = ({ comment }) => {
   const { createdAt, writer, contents } = comment;
+  const user: UserTypes = useSelector((state: RootReducer) => state.user);
+  const name = user.name;
   const datetime = moment(createdAt).fromNow();
-
   return (
     <li className="comment">
       <div className="comment-info">
-        <h6 className="comment-writer">{writer.name}</h6>
+        <h6 className="comment-writer">{name}</h6>
         <div className="comment-datetime">{datetime}</div>
       </div>
       <p className="comment-text">{contents}</p>

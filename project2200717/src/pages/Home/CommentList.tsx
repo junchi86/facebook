@@ -1,10 +1,9 @@
 import React, { FC } from 'react';
-import PropTypes from 'prop-types';
 import Comment from './Comment';
-import { TComment } from 'Types';
+import { CommentTypes } from 'data/rootTypes';
 
 interface IProps {
-  commentList: TComment[];
+  commentList: CommentTypes[];
 }
 
 const CommentList: FC<IProps> = ({ commentList }) => {

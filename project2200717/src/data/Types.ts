@@ -1,4 +1,4 @@
-import { Component, FC, SyntheticEvent, FormEvent } from 'react';
+import { FC, SyntheticEvent, FormEvent } from 'react';
 
 export type User = {
   seq: number;
@@ -61,3 +61,15 @@ export type PublicLayout = {
   path: string;
   component: FC<any>;
 };
+
+//redux
+export type StoreState = {
+  user: User | undefined;
+  posts: Post[];
+};
+
+export type StoreAction = {
+  type: string;
+  payload: any;
+};
+export type StoreReducer = (state: StoreState, action: StoreAction) => StoreState;

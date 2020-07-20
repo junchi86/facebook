@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
-import toggle from '../../hocs/toggle';
-import { User } from 'Types';
+
+import { UserTypes } from 'data/rootTypes';
+import toggle from 'hocs/toggle';
 
 interface IProps {
-  user: User;
+  user: UserTypes;
   show: boolean;
 }
 

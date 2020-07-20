@@ -1,12 +1,14 @@
-import React, { Component, useState, FC } from 'react';
-import { AddComment, TFormEvent, TTextAreaEvent } from 'Types';
+import React, { useState, FC, memo } from 'react';
+import { TFormEvent, TTextAreaEvent } from 'Types';
+import { useDispatch } from 'react-redux';
+import { addComment } from 'data/comments/actions';
 
 interface IProps {
   postSeq: number;
+  userSeq: number;
   minHeight?: number;
   lineHeight?: number;
   placeholder?: string;
-  onCommentSubmit: AddComment;
 }
 
 interface IState {
@@ -16,17 +18,18 @@ interface IState {
 const initialState: IState = { contents: '' };
 
 const CommentForm: FC<IProps> = ({
+  userSeq,
   postSeq,
-  onCommentSubmit,
   minHeight = 20,
   lineHeight = 20,
   placeholder = '댓글을 입력하세요...',
 }) => {
   const [state, setState] = useState(initialState);
   const { contents } = state;
+  const dispatch = useDispatch();
   const handleSubmit: TFormEvent = (e) => {
     e.preventDefault();
-    onCommentSubmit(postSeq, state.contents);
+    dispatch(addComment(contents, postSeq, userSeq));
     setState({ contents: '' });
   };
 
@@ -71,4 +74,4 @@ const CommentForm: FC<IProps> = ({
   );
 };
 
-export default CommentForm;
+export default memo(CommentForm);

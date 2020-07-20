@@ -5,7 +5,7 @@
     [
       "module-resolver",
       {
-        "extensions": [".tsx"],
+        "extensions": [".tsx", ".ts"],
         "root": ["./src"]
       }
     ]

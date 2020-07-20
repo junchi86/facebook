@@ -1,17 +1,17 @@
-import React, { FC } from 'react';
-import Post from './Post';
+import React, { FC, useState } from 'react';
 import PostForm from './PostForm';
 import { Home } from 'Types';
+import { useSelector } from 'react-redux';
+import { RootReducer, PostState } from 'data/rootTypes';
+import Post from './Post';
 
-const Home: FC<Home> = ({ posts, onCommentSubmit, onPostSubmit, onLikeClicked }) => {
-  console.log(posts);
-  const postList = posts.map((post) => (
-    <Post key={post.seq} onCommentSubmit={onCommentSubmit} onLikeClicked={onLikeClicked} post={post} />
-  ));
+const Home: FC<Home> = () => {
+  const posts: PostState = useSelector((state: RootReducer) => state.posts);
+  const postList = posts.byId.map((post) => <Post key={post.seq} post={post} />);
 
   return (
     <div className="posts container">
-      <PostForm onPostSubmit={onPostSubmit} />
+      <PostForm />
       {postList}
       <style jsx>{`
         .container {
