@@ -7,36 +7,48 @@ export const DummyUsers: UserEntities = {
       name: '해리',
       profileImageUrl:
         'https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png',
+      email: 'harry@naver.com',
+      password: 'harry',
     },
     {
       seq: 1,
       name: '지호',
       profileImageUrl:
         'https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png',
+      email: 'jiho@naver.com',
+      password: 'jiho',
     },
     {
       seq: 2,
       name: '에밀리',
       profileImageUrl:
         'https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png',
+      email: 'emily@naver.com',
+      password: 'emily',
     },
     {
       seq: 3,
       name: '진',
       profileImageUrl:
         'https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png',
+      email: 'jin@naver.com',
+      password: 'jin',
     },
     {
       seq: 4,
       name: '크리시',
       profileImageUrl:
         'https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png',
+      email: 'chrissy@naver.com',
+      password: 'chrissy',
     },
     {
       seq: 5,
       name: '스텔라',
       profileImageUrl:
         'https://s3.ap-northeast-2.amazonaws.com/grepp-cloudfront/programmers_imgs/learn/course9872/instructor_harry.png',
+      email: 'stella@naver.com',
+      password: 'stella',
     },
   ],
   allId: [0, 1, 2, 3, 4, 5],

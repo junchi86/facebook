@@ -3,11 +3,11 @@ import classnames from 'classnames';
 import moment from 'moment';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
-import { TButtonEvent } from 'Types';
 import { useDispatch, useSelector } from 'react-redux';
 import { likePost } from 'data/posts/actions';
-import { PostTypes, UserEntities, CommentEntities, RootReducer, UserTypes } from 'data/rootTypes';
+import { PostTypes, CommentEntities, RootReducer, UserTypes } from 'data/rootTypes';
 import { DummyUsers } from 'data/Dummy';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   post: PostTypes;
@@ -25,7 +25,7 @@ const Post: FC<IProps> = ({ post }) => {
   const commentList = rowComments.byId.filter((i) => i.postId === seq);
   const datetime = moment(createdAt).fromNow();
   const dispatch = useDispatch();
-  const handleClickLikeButton: TButtonEvent = (e) => {
+  const handleClickLikeButton = (e: React.SyntheticEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     dispatch(likePost(seq));
   };
@@ -33,7 +33,9 @@ const Post: FC<IProps> = ({ post }) => {
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">{name}</h5>
+        <Link to={'/u/' + user.seq} className="nav-link">
+          <h5 className="card-title">{name}</h5>
+        </Link>
         <h6 className="card-subtitle text-muted">{datetime}</h6>
         <p className="card-text">{contents}</p>
         <hr />

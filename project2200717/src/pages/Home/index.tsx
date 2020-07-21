@@ -1,14 +1,34 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import PostForm from './PostForm';
-import { Home } from 'Types';
 import { useSelector } from 'react-redux';
-import { RootReducer, PostState } from 'data/rootTypes';
+import { RootReducer, PostState, PostTypes } from 'data/rootTypes';
 import Post from './Post';
+import { useParams } from 'react-router-dom';
 
-const Home: FC<Home> = () => {
+type Params = {
+  seq: string;
+};
+
+type PostList = {
+  key: number;
+  post: PostTypes;
+};
+
+const Home = () => {
+  const params: Params = useParams();
+  const paramsSeq = Number(params.seq);
   const posts: PostState = useSelector((state: RootReducer) => state.posts);
-  const postList = posts.byId.map((post) => <Post key={post.seq} post={post} />);
-
+  const initialState: PostTypes[] = [];
+  const [state, setState] = useState(initialState);
+  useEffect(() => {
+    if (!paramsSeq) {
+      const list = [...posts.byId];
+      return setState([...list]);
+    }
+    const list = posts.byId.filter((i) => i.writer === paramsSeq);
+    return setState(list);
+  }, [params]);
+  const postList = state.map((post) => <Post key={post.seq} post={post} />);
   return (
     <div className="posts container">
       <PostForm />

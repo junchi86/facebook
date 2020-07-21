@@ -1,9 +1,8 @@
-import React, { FC, DispatchWithoutAction, Dispatch } from 'react';
+import React, { FC } from 'react';
 import toggle from 'hocs/toggle';
-import { OnClickAnchor } from 'Types';
-import { Action } from 'redux';
-import { DispatchProp, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { logout } from 'data/users/actions';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   to: string;
@@ -13,18 +12,20 @@ interface IProps {
 
 const NaviItem: FC<IProps> = ({ to, text, action }) => {
   const dispatch = useDispatch();
-  const onClickAnchor: OnClickAnchor = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dispatch(logout());
+  const onClickAnchor = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (action) {
+      e.preventDefault();
+      e.stopPropagation();
+      dispatch(logout());
+    }
   };
 
   return (
     <>
       <li className="nav-item">
-        <a href={to} onClick={onClickAnchor} className="nav-link">
+        <Link to={to} onClick={onClickAnchor} className="nav-link">
           {text}
-        </a>
+        </Link>
       </li>
       <style jsx>
         {`

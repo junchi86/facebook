@@ -1,8 +1,6 @@
 import React, { useState, FC, memo } from 'react';
-import { TFormEvent, TTextAreaEvent } from 'Types';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPost } from 'data/posts/actions';
-import userSelecter from 'data/users/selectors';
 import { RootReducer } from 'data/rootTypes';
 
 interface IProps {
@@ -21,7 +19,7 @@ const PostForm: FC<IProps> = ({ minHeight = 100, lineHeight = 20, placeholder = 
   const { contents } = state;
   const dispatch = useDispatch();
   const user = useSelector((state: RootReducer) => state.user);
-  const handleFormSubmit: TFormEvent = (e) => {
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(addPost(contents, user));
     setState({
@@ -29,7 +27,7 @@ const PostForm: FC<IProps> = ({ minHeight = 100, lineHeight = 20, placeholder = 
     });
   };
 
-  const handelFormChange: TTextAreaEvent = (e) =>
+  const handelFormChange = (e: React.SyntheticEvent<HTMLTextAreaElement>) =>
     setState({
       contents: e.currentTarget.value,
     });

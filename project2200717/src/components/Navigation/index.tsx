@@ -2,14 +2,11 @@ import React, { FC } from 'react';
 import Logo from '../Logo';
 import Profile from '../Profile';
 import NaviItem from './NaviItem';
-import { useDispatch, useSelector } from 'react-redux';
-import { logout } from 'data/users/actions';
+import { useSelector } from 'react-redux';
 import { RootReducer } from 'data/rootTypes';
 
 const Navigation: FC = () => {
   const user = useSelector((state: RootReducer) => state.user);
-  const dispatch = useDispatch();
-  const onLogout = () => dispatch(logout());
   return (
     <nav className="navbar fixed-top bg-blue">
       <Logo />
@@ -17,7 +14,7 @@ const Navigation: FC = () => {
         <NaviItem to="/login" text="로그인" show={!user} />
         <NaviItem to="/signup" text="회원가입" show={!user} />
         <Profile show={user} user={user} />
-        <NaviItem to="/signout" text="로그아웃" show={user} />
+        <NaviItem to="/signout" action={true} text="로그아웃" show={user} />
       </ul>
 
       <style jsx>{`

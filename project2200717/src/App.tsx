@@ -13,6 +13,7 @@ const App: FC = () => {
         <Switch>
           <PublicLayout path="/login" component={Login} />
           <PublicLayout path="/signup" component={SignUp} />
+          <DefaultLayout path="/u/:seq" component={Home} />
           <DefaultLayout path="/" component={Home} />
         </Switch>
       </BrowserRouter>

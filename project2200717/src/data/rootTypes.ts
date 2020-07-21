@@ -27,8 +27,15 @@ export type CommentTypes = {
   contents: string;
 };
 
+export type UsersTypes = {
+  seq: number;
+  name: string;
+  profileImageUrl: string;
+  email: string;
+  password: string;
+};
 export type UserEntities = {
-  byId: UserTypes[];
+  byId: UsersTypes[];
   allId: number[];
 };
 

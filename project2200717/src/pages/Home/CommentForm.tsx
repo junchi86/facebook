@@ -1,5 +1,4 @@
 import React, { useState, FC, memo } from 'react';
-import { TFormEvent, TTextAreaEvent } from 'Types';
 import { useDispatch } from 'react-redux';
 import { addComment } from 'data/comments/actions';
 
@@ -27,13 +26,13 @@ const CommentForm: FC<IProps> = ({
   const [state, setState] = useState(initialState);
   const { contents } = state;
   const dispatch = useDispatch();
-  const handleSubmit: TFormEvent = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     dispatch(addComment(contents, postSeq, userSeq));
     setState({ contents: '' });
   };
 
-  const handelFormChange: TTextAreaEvent = (e) =>
+  const handelFormChange = (e: React.SyntheticEvent<HTMLTextAreaElement>): void =>
     setState({
       contents: e.currentTarget.value,
     });

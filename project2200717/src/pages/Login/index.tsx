@@ -1,17 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import LoginForm from '../../components/Form/LoginForm';
 
 const Login = () => {
   return (
     <div className="login container">
       <h1 className="text-center">로그인</h1>
-      <form>
-        <input type="email" className="form-control" placeholder="Email" required />
-        <input type="password" className="form-control" placeholder="Password" required />
-        <Link className="btn btn-lg btn-primary btn-block" to={'/'}>
-          로그인
-        </Link>
-      </form>
+      <LoginForm />
       <p className="text-help text-center">
         계정이 필요하신가요?{' '}
         <Link className="text-center new-account" to="/signup">

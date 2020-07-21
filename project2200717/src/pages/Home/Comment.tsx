@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
-import { CommentTypes, UserEntities, RootReducer, UserTypes } from 'data/rootTypes';
+import { CommentTypes } from 'data/rootTypes';
 import { DummyUsers } from 'data/Dummy';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   comment: CommentTypes;
@@ -20,7 +20,9 @@ const Comment: FC<IProps> = ({ comment }) => {
   return (
     <li className="comment">
       <div className="comment-info">
-        <h6 className="comment-writer">{name}</h6>
+        <Link to={'/u/' + user.seq} className="nav-link">
+          <h6 className="comment-writer">{name}</h6>
+        </Link>
         <div className="comment-datetime">{datetime}</div>
       </div>
       <p className="comment-text">{contents}</p>

@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 import { Route } from 'react-router-dom';
-import { Layout } from 'Types';
+
+type Layout = {
+  path: string;
+  component: FC<any>;
+};
 
 const PublicLayout: FC<Layout> = ({ component: Component, ...rest }) => {
   return (

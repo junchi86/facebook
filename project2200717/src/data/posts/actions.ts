@@ -11,4 +11,4 @@ export const likePost = (postSeq: number) => ({
   type: LIKE_POST,
   payload: postSeq,
 });
-export type PostAction = ReturnType<typeof addPost> | ReturnType<typeof likePost> | ReturnType<typeof addComment>;
+export type PostAction = ReturnType<typeof addPost> | ReturnType<typeof likePost>;

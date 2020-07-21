@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 
 import { UserTypes } from 'data/rootTypes';
 import toggle from 'hocs/toggle';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   user: UserTypes;
@@ -12,9 +13,9 @@ const Profile: FC<IProps> = ({ user }) => {
   const { seq, name, profileImageUrl } = user;
   return (
     <li className="nav-item">
-      <a href={'/u/' + seq} className="nav-link">
+      <Link to={'/u/' + seq} className="nav-link">
         {profileImageUrl ? <img src={profileImageUrl} alt="" /> : false} {name}
-      </a>
+      </Link>
       <style jsx>{`
         .nav-item img {
           width: 25px;
