@@ -10,17 +10,14 @@ interface IProps {
 
 const Comment: FC<IProps> = ({ comment }) => {
   const { createdAt, writer, contents } = comment;
-  const userIdx = DummyUsers.allId.filter((i) => i === writer)[0];
-  if (!userIdx) {
-    return null;
-  }
-  const user = DummyUsers.byId.filter((i) => i.seq === userIdx)[0];
+  const user = DummyUsers.byId[writer];
   const name = user.name;
   const datetime = moment(createdAt).fromNow();
+
   return (
     <li className="comment">
       <div className="comment-info">
-        <Link to={'/u/' + user.seq} className="nav-link">
+        <Link to={'/u/' + user.seq}>
           <h6 className="comment-writer">{name}</h6>
         </Link>
         <div className="comment-datetime">{datetime}</div>

@@ -8,6 +8,8 @@ export type UserTypes = {
   seq: number;
   name: string;
   profileImageUrl: string;
+  postList: number[];
+  commentList: number[];
 };
 
 export type PostTypes = {
@@ -17,6 +19,7 @@ export type PostTypes = {
   createdAt: Date;
   likes: number;
   comments: number;
+  commentList: number[];
   likesOfMe: boolean;
 };
 export type CommentTypes = {
@@ -31,31 +34,29 @@ export type UsersTypes = {
   seq: number;
   name: string;
   profileImageUrl: string;
+  postList: number[];
+  commentList: number[];
   email: string;
   password: string;
 };
 export type UserEntities = {
-  byId: UsersTypes[];
+  byId: { [seq: number]: UsersTypes };
   allId: number[];
 };
 
-export type PostEntities = {
-  byId: PostTypes[];
+export interface PostEntities {
+  byId: { [seq: number]: PostTypes };
   allId: number[];
-};
+}
 
 export type CommentEntities = {
-  byId: CommentTypes[];
+  byId: { [seq: number]: CommentTypes };
   allId: number[];
 };
 
 //State
 
 export type UserState = UserTypes | null;
-
-export type PostState = PostEntities;
-
-export type CommentState = CommentEntities;
 
 //ReducerTypes
 

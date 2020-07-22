@@ -1,14 +1,24 @@
 import { ADD_POST, LIKE_POST } from './actionTypes';
 import { UserTypes } from 'data/rootTypes';
+import { ActionCreator, Action } from 'redux';
 import { addComment } from 'data/comments/actions';
 
-export const addPost = (contents: string, user: UserTypes) => ({
+export interface AddPostAction extends Action<'ADD_POST'> {
+  payload: { contents: string; userSeq: number; postSeq: number };
+}
+
+export interface LikePostAction extends Action<'LIKE_POST'> {
+  payload: number;
+}
+
+export const addPost: ActionCreator<AddPostAction> = (contents: string, userSeq: number, postSeq: number) => ({
   type: ADD_POST,
-  payload: { contents, user },
+  payload: { contents, userSeq, postSeq },
 });
 
-export const likePost = (postSeq: number) => ({
+export const likePost: ActionCreator<LikePostAction> = (postSeq: number) => ({
   type: LIKE_POST,
   payload: postSeq,
 });
-export type PostAction = ReturnType<typeof addPost> | ReturnType<typeof likePost>;
+
+export type PostAction = ReturnType<typeof addPost> | ReturnType<typeof likePost> | ReturnType<typeof addComment>;

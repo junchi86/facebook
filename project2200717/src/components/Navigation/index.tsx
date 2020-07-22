@@ -4,6 +4,7 @@ import Profile from '../Profile';
 import NaviItem from './NaviItem';
 import { useSelector } from 'react-redux';
 import { RootReducer } from 'data/rootTypes';
+import { DummyUsers } from 'data/Dummy';
 
 const Navigation: FC = () => {
   const user = useSelector((state: RootReducer) => state.user);

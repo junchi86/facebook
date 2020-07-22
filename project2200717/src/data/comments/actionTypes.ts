@@ -1,1 +1,1 @@
-export const ADD_COMMENT = 'ADD_COMMENT' as const;
+export const ADD_COMMENT = 'ADD_COMMENT';

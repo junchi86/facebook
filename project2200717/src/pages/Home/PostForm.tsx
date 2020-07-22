@@ -1,9 +1,12 @@
-import React, { useState, FC, memo } from 'react';
+import React, { useState, FC, memo, useRef, RefObject } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPost } from 'data/posts/actions';
-import { RootReducer } from 'data/rootTypes';
+import { RootReducer, UserTypes } from 'data/rootTypes';
+import { addPostUser } from 'data/users/actions';
+import useCustumHeight from 'util/useCustumHeight';
 
 interface IProps {
+  postSeq: number;
   minHeight?: number;
   lineHeight?: number;
   placeholder?: string;
@@ -14,14 +17,23 @@ interface IState {
 }
 const initialState: IState = { contents: '' };
 
-const PostForm: FC<IProps> = ({ minHeight = 100, lineHeight = 20, placeholder = '무슨 생각을 하고 계신가요?' }) => {
+const PostForm: FC<IProps> = ({
+  minHeight = 100,
+  lineHeight = 20,
+  placeholder = '무슨 생각을 하고 계신가요?',
+  postSeq,
+}) => {
   const [state, setState] = useState(initialState);
   const { contents } = state;
   const dispatch = useDispatch();
-  const user = useSelector((state: RootReducer) => state.user);
+  const user: UserTypes = useSelector((state: RootReducer) => state.user);
+
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    dispatch(addPost(contents, user));
+    if (user === null) return;
+    if (user === undefined) return;
+    dispatch(addPost(contents, user.seq, postSeq));
+    dispatch(addPostUser(user.seq, postSeq));
     setState({
       contents: '',
     });
@@ -31,9 +43,14 @@ const PostForm: FC<IProps> = ({ minHeight = 100, lineHeight = 20, placeholder = 
     setState({
       contents: e.currentTarget.value,
     });
+
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  useCustumHeight(textAreaRef);
+
   return (
     <form className="write-form" onSubmit={handleFormSubmit}>
       <textarea
+        ref={textAreaRef}
         className="form-control input-lg"
         placeholder={placeholder}
         spellCheck="false"
