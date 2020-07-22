@@ -5,18 +5,25 @@ import { useParams } from 'react-router-dom';
 import { DummyUsers } from 'data/Dummy';
 import { useSelector } from 'react-redux';
 import { RootReducer, PostEntities, PostTypes } from 'data/rootTypes';
+import { RouterState } from 'connected-react-router';
 
 type Params = {
   seq: string;
 };
 
 const Home = () => {
-  const params: Params = useParams();
+  const para: any = useSelector((state: RootReducer) => state.router);
+
+  //console.log(para.location.pathname.split('/')[2]);
+  //const params: Params = useParams();
+  const params = para.location.pathname.split('/')[2];
   const posts: PostEntities = useSelector((state: RootReducer) => state.posts);
   const initialState: PostTypes[] = [];
   const [state, setState] = useState(initialState);
   useEffect(() => {
-    const paramsSeq = params.seq;
+    //const paramsSeq = params.seq;
+    const paramsSeq = params;
+
     if (paramsSeq) {
       const user = DummyUsers.byId[Number(paramsSeq)];
       const paramPosts = user.postList;

@@ -2,6 +2,7 @@ import { UserAction } from './users/actions';
 import { CommentAction } from './comments/actions';
 import { PostAction } from './posts/actions';
 import rootReducer from './rootReducers';
+import { CombinedState } from 'redux';
 
 //StateTypes
 export type UserTypes = {
@@ -66,4 +67,11 @@ export type PostReducer = (state: PostEntities, action: PostAction) => PostEntit
 
 export type CommentReducer = (state: CommentEntities, action: CommentAction) => CommentEntities;
 
-export type RootReducer = ReturnType<typeof rootReducer>;
+interface ICombine {
+  user: UserTypes;
+  posts: PostEntities;
+  comments: CommentEntities;
+  router: object;
+}
+
+export type RootReducer = CombinedState<ICombine>;

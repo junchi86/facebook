@@ -5,18 +5,24 @@ import DefaultLayout from './layouts/DefaultLayout';
 import PublicLayout from './layouts/PublicLayout';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import { ConnectedRouter } from 'connected-react-router';
+import { History } from 'history';
 
-const App: FC = () => {
+interface historyProps {
+  history: History;
+}
+
+const App: FC<historyProps> = ({ history }) => {
   return (
     <>
-      <BrowserRouter>
+      <ConnectedRouter history={history}>
         <Switch>
           <PublicLayout path="/login" component={Login} />
           <PublicLayout path="/signup" component={SignUp} />
           <DefaultLayout path="/u/:seq" component={Home} />
           <DefaultLayout path="/" component={Home} />
         </Switch>
-      </BrowserRouter>
+      </ConnectedRouter>
       <style jsx global>{`
         * {
           box-sizing: border-box;
