@@ -1,6 +1,4 @@
+import { PostEntities, RootReducer } from 'data/rootTypes';
 import { useSelector } from 'react-redux';
-import { RootReducer } from 'data/rootTypes';
 
-const postsSelecter = useSelector((state: RootReducer) => state.posts);
-
-export default postsSelecter;
+export const getEntirePosts = (): PostEntities => useSelector((state: RootReducer) => state.posts);

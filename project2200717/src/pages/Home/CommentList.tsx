@@ -1,17 +1,17 @@
 import React, { FC } from 'react';
 import Comment from './Comment';
-import { CommentTypes } from 'data/rootTypes';
+import { CommentTypes, CommentEntities } from 'data/rootTypes';
+import { commentSelector } from 'data/rootSelectors';
 
 interface IProps {
-  commentList: CommentTypes[];
+  commentList: number[];
 }
 
 const CommentList: FC<IProps> = ({ commentList }) => {
+  const comments = commentSelector.getEntireComments().byId;
   return (
     <ul className="comment-list">
-      {commentList.map((comment) => (
-        <Comment key={comment.seq} comment={comment} />
-      ))}
+      {commentList.length > 0 && commentList.map((i) => <Comment key={comments[i].seq} comment={comments[i]} />)}
       <style jsx global>{`
         ul.comment-list {
           padding: 0;

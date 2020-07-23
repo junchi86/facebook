@@ -2,48 +2,32 @@ import React, { useState, FormEvent, SyntheticEvent, memo } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { login } from 'data/users/actions';
+import InputComponent from './Input/InputComponent';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [pass, setPass] = useState('');
+  const [state, setState] = useState({ email: '', password: '' });
+  const { email, password } = state;
   const dispatch = useDispatch();
   const history = useHistory();
   const onSubmit = (e: FormEvent): void => {
     e.preventDefault();
     try {
       alert('로그인 하시겠습니까?');
-      dispatch(login(email, pass));
+      dispatch(login(email, password));
       history.push('/');
     } catch (error) {
-      alert('로그인이 실패했습니다.');
+      alert(error);
     }
   };
-  const onChangeEmail = (e: SyntheticEvent<HTMLInputElement>): void => {
+  const onChange = (e: SyntheticEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    setEmail(e.currentTarget.value);
-  };
-  const onChangePass = (e: SyntheticEvent<HTMLInputElement>): void => {
-    e.preventDefault();
-    setPass(e.currentTarget.value);
+    const { name, value } = e.currentTarget;
+    setState({ ...state, [name]: value });
   };
   return (
     <form onSubmit={onSubmit}>
-      <input
-        type="email"
-        className="form-control"
-        placeholder="Email"
-        required
-        onChange={onChangeEmail}
-        value={email}
-      />
-      <input
-        type="password"
-        className="form-control"
-        placeholder="Password"
-        onChange={onChangePass}
-        required
-        value={pass}
-      />
+      <InputComponent type="email" placeholder="Email" onChange={onChange} name="email" value={email} />
+      <InputComponent type="password" placeholder="Password" onChange={onChange} name="password" value={password} />
       <button className="btn btn-lg btn-primary btn-block">로그인</button>
     </form>
   );

@@ -1,12 +1,11 @@
-import React, { useState, FC, memo, useRef, RefObject } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, FC, memo, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { addPost } from 'data/posts/actions';
-import { RootReducer, UserTypes } from 'data/rootTypes';
 import { addPostUser } from 'data/users/actions';
-import useCustumHeight from 'util/useCustumHeight';
+import useCustomHeight from 'util/useCustomHeight';
+import { userSelector, postSelector } from 'data/rootSelectors';
 
 interface IProps {
-  postSeq: number;
   minHeight?: number;
   lineHeight?: number;
   placeholder?: string;
@@ -17,23 +16,17 @@ interface IState {
 }
 const initialState: IState = { contents: '' };
 
-const PostForm: FC<IProps> = ({
-  minHeight = 100,
-  lineHeight = 20,
-  placeholder = '무슨 생각을 하고 계신가요?',
-  postSeq,
-}) => {
+const PostForm: FC<IProps> = ({ minHeight = 100, lineHeight = 20, placeholder = '무슨 생각을 하고 계신가요?' }) => {
   const [state, setState] = useState(initialState);
   const { contents } = state;
   const dispatch = useDispatch();
-  const user: UserTypes = useSelector((state: RootReducer) => state.user);
-
+  const user = userSelector.getCurrentUser();
+  const newPostSeq = postSelector.getEntirePosts().allId.length;
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    if (user === null) return;
-    if (user === undefined) return;
-    dispatch(addPost(contents, user.seq, postSeq));
-    dispatch(addPostUser(user.seq, postSeq));
+    if (!user) return;
+    dispatch(addPost(contents, user.seq));
+    dispatch(addPostUser(user.seq, newPostSeq));
     setState({
       contents: '',
     });
@@ -45,7 +38,7 @@ const PostForm: FC<IProps> = ({
     });
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  useCustumHeight(textAreaRef);
+  useCustomHeight(textAreaRef);
 
   return (
     <form className="write-form" onSubmit={handleFormSubmit}>

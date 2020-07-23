@@ -9,14 +9,14 @@ const reducer: CommentReducer = (state = initialState, action) => {
     case ADD_COMMENT:
       const newComments = { ...state };
       const comment: CommentTypes = {
-        seq: action.payload.commentSeq,
+        seq: newComments.allId.length,
         postId: action.payload.postSeq,
         writer: action.payload.userSeq,
         contents: action.payload.contents,
         createdAt: new Date(),
       };
+      newComments.allId = [...newComments.allId, comment.seq];
       newComments.byId[comment.seq] = comment;
-      newComments.allId.push(comment.seq);
       return newComments;
     default:
       return state;

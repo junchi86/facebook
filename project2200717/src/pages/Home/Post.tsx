@@ -3,31 +3,26 @@ import classnames from 'classnames';
 import moment from 'moment';
 import CommentList from './CommentList';
 import CommentForm from './CommentForm';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { likePost } from 'data/posts/actions';
-import { PostTypes, CommentEntities, RootReducer, PostEntities, UserTypes, UserState } from 'data/rootTypes';
-import { DummyUsers, DummyComments } from 'data/Dummy';
 import { Link } from 'react-router-dom';
+import { userSelector, postSelector } from 'data/rootSelectors';
 
 interface IProps {
-  post: PostTypes;
+  postSeq: number;
 }
 
-const Post: FC<IProps> = ({ post }) => {
-  const { seq, writer, createdAt, contents, likes, likesOfMe } = post;
-
-  const user = DummyUsers.byId[writer];
-  const name = user.name;
-  const currentUser: UserTypes = useSelector((state: RootReducer) => state.user);
-  const rowComments: CommentEntities = useSelector((state: RootReducer) => state.comments);
-  const beforeCommentList = post.commentList;
-  const commentList = beforeCommentList.map((i) => rowComments.byId[i]);
+const Post: FC<IProps> = ({ postSeq }) => {
+  const post = postSelector.getEntirePosts().byId[postSeq];
+  const { seq, writer, createdAt, contents, likes, likesOfMe, commentList } = post;
+  const user = userSelector.getUserInUserSelector(writer);
+  const { name } = user;
+  const currentUser = userSelector.getCurrentUser();
   const datetime = moment(createdAt).fromNow();
   const dispatch = useDispatch();
   const handleClickLikeButton = (e: React.SyntheticEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    if (currentUser === null) return;
-    if (currentUser === undefined) return;
+    if (!currentUser) return;
     dispatch(likePost(seq));
   };
   return (
@@ -54,7 +49,7 @@ const Post: FC<IProps> = ({ post }) => {
         </div>
       </div>
       <CommentList commentList={commentList} />
-      <CommentForm userSeq={currentUser?.seq} postSeq={seq} commentSeq={rowComments.allId.length} />
+      <CommentForm postSeq={seq} />
       <style jsx global>{`
         .card {
           padding: 0;

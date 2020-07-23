@@ -1,6 +1,4 @@
+import { CommentEntities, RootReducer } from 'data/rootTypes';
 import { useSelector } from 'react-redux';
-import { RootReducer } from 'data/rootTypes';
 
-const commentsSelecter = useSelector((state: RootReducer) => state.comments);
-
-export default commentsSelecter;
+export const getEntireComments = (): CommentEntities => useSelector((state: RootReducer) => state.comments);

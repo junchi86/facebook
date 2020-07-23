@@ -1,8 +1,6 @@
 import { UserReducer, UserState, UsersTypes, UserTypes } from 'data/rootTypes';
-import { DummyUsers, DummyPosts } from 'data/Dummy';
-import { LOGOUT, LOGIN, SIGNUP, ADD_POST_USER, ADD_COMMENT_USER } from './actionTypes';
-import { ADD_POST } from 'data/posts/actionTypes';
-import { ADD_COMMENT } from 'data/comments/actionTypes';
+import { DummyUsers } from 'data/Dummy';
+import { LOGOUT, LOGIN, SIGNUP, ADD_POST_TO_USER } from './actionTypes';
 
 const initialState: UserState = {
   seq: 0,
@@ -18,14 +16,14 @@ const reducer: UserReducer = (state = initialState, action) => {
     case LOGOUT:
       return null;
     case LOGIN:
-      const isEmail = DummyUsers.allId.filter((i) => DummyUsers.byId[i].email === action.payload.email);
-      if (isEmail.length === 0) throw new Error();
-      const user: UsersTypes = DummyUsers.byId[isEmail[0]];
+      const isExistEmail = DummyUsers.allId.find((i) => DummyUsers.byId[i].email === action.payload.email);
+      if (isExistEmail === undefined) throw new Error('메일이 없습니다.');
+      const user: UsersTypes = DummyUsers.byId[isExistEmail];
       if (user.password !== action.payload.password) throw new Error();
       return user;
     case SIGNUP:
-      const isEmail2 = DummyUsers.allId.filter((i) => DummyUsers.byId[i].email === action.payload.email);
-      if (isEmail2.length !== 0) return null;
+      const isExistEmail2 = DummyUsers.allId.find((i) => DummyUsers.byId[i].email === action.payload.email);
+      if (isExistEmail2 !== undefined) throw new Error('같은 메일이 존재합니다.');
       const user2: UsersTypes = {
         seq: DummyUsers.allId.length,
         name: action.payload.name,
@@ -45,18 +43,12 @@ const reducer: UserReducer = (state = initialState, action) => {
         postList: user2.postList,
         commentList: user2.commentList,
       };
-    case ADD_POST_USER:
+    case ADD_POST_TO_USER:
       if (state === null) return state;
       const addPostUser: UserTypes = Object.assign(state);
       addPostUser.postList.push(action.payload.postSeq);
       DummyUsers.byId[action.payload.userSeq].postList.push(action.payload.postSeq);
       return addPostUser;
-    case ADD_COMMENT_USER:
-      if (state === null) return state;
-      const addCommentUser: UserTypes = Object.assign(state);
-      addCommentUser.commentList.push(action.payload.commentSeq);
-      DummyUsers.byId[action.payload.userSeq].commentList.push(action.payload.commentSeq);
-      return addCommentUser;
     default:
       return state;
   }

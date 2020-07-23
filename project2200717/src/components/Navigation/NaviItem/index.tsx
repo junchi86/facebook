@@ -1,7 +1,5 @@
 import React, { FC } from 'react';
 import toggle from 'hocs/toggle';
-import { useDispatch } from 'react-redux';
-import { logout } from 'data/users/actions';
 import { Link } from 'react-router-dom';
 
 interface IProps {
@@ -11,12 +9,11 @@ interface IProps {
 }
 
 const NaviItem: FC<IProps> = ({ to, text, action }) => {
-  const dispatch = useDispatch();
   const onClickAnchor = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (action) {
       e.preventDefault();
       e.stopPropagation();
-      dispatch(logout());
+      action();
     }
   };
 

@@ -4,16 +4,16 @@ import { ActionCreator, Action } from 'redux';
 import { addComment } from 'data/comments/actions';
 
 export interface AddPostAction extends Action<'ADD_POST'> {
-  payload: { contents: string; userSeq: number; postSeq: number };
+  payload: { contents: string; userSeq: number };
 }
 
 export interface LikePostAction extends Action<'LIKE_POST'> {
   payload: number;
 }
 
-export const addPost: ActionCreator<AddPostAction> = (contents: string, userSeq: number, postSeq: number) => ({
+export const addPost: ActionCreator<AddPostAction> = (contents: string, userSeq: number) => ({
   type: ADD_POST,
-  payload: { contents, userSeq, postSeq },
+  payload: { contents, userSeq },
 });
 
 export const likePost: ActionCreator<LikePostAction> = (postSeq: number) => ({

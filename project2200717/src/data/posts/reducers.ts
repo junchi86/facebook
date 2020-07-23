@@ -22,12 +22,11 @@ const reducer: PostReducer = (state = initialState, action) => {
       };
       const posts = { ...state };
       posts.byId[post.seq] = post;
-      posts.allId.unshift(post.seq);
+      posts.allId = [post.seq, ...posts.allId];
       return posts;
     case LIKE_POST:
       const newPosts = { ...state };
-      const idx = newPosts.allId.filter((v) => v === action.payload)[0];
-      const newPost = newPosts.byId[idx];
+      const newPost = newPosts.byId[action.payload];
       if (newPost.likesOfMe === false) newPost.likes += 1;
       newPost.likesOfMe = true;
       return newPosts;
@@ -36,7 +35,7 @@ const reducer: PostReducer = (state = initialState, action) => {
       const idx2 = newPosts2.allId.filter((v) => v === action.payload.postSeq)[0];
       const newPost2 = newPosts2.byId[idx2];
       newPost2.commentList.push(action.payload.commentSeq);
-      return state;
+      return newPosts2;
     default:
       return state;
   }

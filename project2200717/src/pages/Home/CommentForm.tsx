@@ -1,12 +1,10 @@
 import React, { useState, FC, memo } from 'react';
 import { useDispatch } from 'react-redux';
 import { addComment } from 'data/comments/actions';
-import { addCommentUser } from 'data/users/actions';
+import { userSelector, commentSelector } from 'data/rootSelectors';
 
 interface IProps {
   postSeq: number;
-  userSeq: number;
-  commentSeq: number;
   minHeight?: number;
   lineHeight?: number;
   placeholder?: string;
@@ -19,9 +17,7 @@ interface IState {
 const initialState: IState = { contents: '' };
 
 const CommentForm: FC<IProps> = ({
-  userSeq,
   postSeq,
-  commentSeq,
   minHeight = 20,
   lineHeight = 20,
   placeholder = '댓글을 입력하세요...',
@@ -29,12 +25,13 @@ const CommentForm: FC<IProps> = ({
   const [state, setState] = useState(initialState);
   const { contents } = state;
   const dispatch = useDispatch();
+  const user = userSelector.getCurrentUser();
+  const commentSeq = commentSelector.getEntireComments().allId.length;
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    if (userSeq === null) return;
-    if (userSeq === undefined) return;
+    if (!user) return;
+    const userSeq = user.seq;
     dispatch(addComment(contents, postSeq, userSeq, commentSeq));
-    dispatch(addCommentUser(userSeq, commentSeq));
     setState({ contents: '' });
   };
 

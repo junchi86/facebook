@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import moment from 'moment';
 import { CommentTypes } from 'data/rootTypes';
-import { DummyUsers } from 'data/Dummy';
 import { Link } from 'react-router-dom';
+import { userSelector } from 'data/rootSelectors';
 
 interface IProps {
   comment: CommentTypes;
@@ -10,8 +10,8 @@ interface IProps {
 
 const Comment: FC<IProps> = ({ comment }) => {
   const { createdAt, writer, contents } = comment;
-  const user = DummyUsers.byId[writer];
-  const name = user.name;
+  const user = userSelector.getUserInUserSelector(writer);
+  const { name } = user;
   const datetime = moment(createdAt).fromNow();
 
   return (
