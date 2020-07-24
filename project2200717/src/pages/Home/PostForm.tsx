@@ -38,7 +38,7 @@ const PostForm: FC<IProps> = ({ minHeight = 100, lineHeight = 20, placeholder = 
     });
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
-  useCustomHeight(textAreaRef);
+  useCustomHeight(textAreaRef, lineHeight);
 
   return (
     <form className="write-form" onSubmit={handleFormSubmit}>
